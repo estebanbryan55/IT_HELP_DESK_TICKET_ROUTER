@@ -1,0 +1,13 @@
+# Secrets and local runtime data
+backend/.env
+backend/data/
+backend/logs/
+**/*.tmp
+
+# Dart / Flutter
+.dart_tool/
+.packages
+build/
+*.iml
+.idea/
+.vscode/

@@ -1,0 +1,17 @@
+name: helpdesk_backend
+description: Backend API and automation for the IT Help Desk Ticket Router (PFEBSIT 002, Project 16).
+version: 0.13.0
+publish_to: none
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  http: ^1.2.0
+  shelf: ^1.4.2
+  shelf_router: ^1.1.4
+  uuid: ^4.5.0
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.0
