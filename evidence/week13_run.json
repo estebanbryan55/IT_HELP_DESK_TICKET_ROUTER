@@ -1,0 +1,1761 @@
+[
+  {
+    "step": 1,
+    "at": "2026-11-04T06:19:08.912339Z",
+    "request": "POST /admin/reset",
+    "user": null,
+    "correlationId": "ev13-0001-73148742",
+    "status": 200,
+    "durationMs": 163,
+    "response": {
+      "status": "reset"
+    }
+  },
+  {
+    "step": 2,
+    "at": "2026-11-04T06:19:08.941180Z",
+    "request": "GET /health",
+    "user": null,
+    "correlationId": "ev13-0002-73148927",
+    "status": 200,
+    "durationMs": 14,
+    "response": {
+      "status": "ok",
+      "version": "0.13.0",
+      "time": "2026-11-04T06:19:08.927998Z",
+      "checks": {
+        "store": "ok",
+        "notificationGateway": "ok",
+        "outbox": {
+          "pending": 0,
+          "inFlight": 0,
+          "deadLetter": 0
+        }
+      }
+    }
+  },
+  {
+    "step": 3,
+    "at": "2026-11-04T06:19:08.998288Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ana",
+    "correlationId": "ev13-0003-73148941",
+    "status": 201,
+    "durationMs": 52,
+    "response": {
+      "id": "TKT-0001",
+      "title": "Wifi keeps dropping in Room 204",
+      "description": "The wifi connection drops every few minutes during class.",
+      "requestedCategory": "auto",
+      "requestedPriority": "medium",
+      "category": "network",
+      "priority": "medium",
+      "status": "assigned",
+      "requesterId": "req-ana",
+      "assigneeId": "agent-carla",
+      "team": "network",
+      "createdAt": "2026-11-04T06:19:08.966203Z",
+      "updatedAt": "2026-11-04T06:19:08.966203Z",
+      "slaDueAt": "2026-11-05T06:19:08.966203Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: network (1 hit)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:08.966203Z",
+          "actor": "req-ana",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0003-73148941"
+        },
+        {
+          "at": "2026-11-04T06:19:08.974215Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: network (1 hit) -> agent-carla",
+          "correlationId": "ev13-0003-73148941"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ana Reyes (Student)",
+      "assigneeName": "Carla Dizon"
+    }
+  },
+  {
+    "step": 4,
+    "at": "2026-11-04T06:19:09.024596Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ana",
+    "correlationId": "ev13-0004-73148998",
+    "status": 201,
+    "durationMs": 25,
+    "response": {
+      "id": "TKT-0001",
+      "title": "Wifi keeps dropping in Room 204",
+      "description": "The wifi connection drops every few minutes during class.",
+      "requestedCategory": "auto",
+      "requestedPriority": "medium",
+      "category": "network",
+      "priority": "medium",
+      "status": "assigned",
+      "requesterId": "req-ana",
+      "assigneeId": "agent-carla",
+      "team": "network",
+      "createdAt": "2026-11-04T06:19:08.966203Z",
+      "updatedAt": "2026-11-04T06:19:08.966203Z",
+      "slaDueAt": "2026-11-05T06:19:08.966203Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: network (1 hit)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:08.966203Z",
+          "actor": "req-ana",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0003-73148941"
+        },
+        {
+          "at": "2026-11-04T06:19:08.974215Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: network (1 hit) -> agent-carla",
+          "correlationId": "ev13-0003-73148941"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ana Reyes (Student)",
+      "assigneeName": "Carla Dizon"
+    }
+  },
+  {
+    "step": 5,
+    "at": "2026-11-04T06:19:09.041256Z",
+    "request": "POST /api/v1/tickets/TKT-0001/responses",
+    "user": "agent-carla",
+    "correlationId": "ev13-0005-73149024",
+    "status": 200,
+    "durationMs": 24,
+    "response": {
+      "id": "TKT-0001",
+      "title": "Wifi keeps dropping in Room 204",
+      "description": "The wifi connection drops every few minutes during class.",
+      "requestedCategory": "auto",
+      "requestedPriority": "medium",
+      "category": "network",
+      "priority": "medium",
+      "status": "in_progress",
+      "requesterId": "req-ana",
+      "assigneeId": "agent-carla",
+      "team": "network",
+      "createdAt": "2026-11-04T06:19:08.966203Z",
+      "updatedAt": "2026-11-04T06:19:09.032608Z",
+      "slaDueAt": "2026-11-05T06:19:08.966203Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: network (1 hit)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:08.966203Z",
+          "actor": "req-ana",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0003-73148941"
+        },
+        {
+          "at": "2026-11-04T06:19:08.974215Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: network (1 hit) -> agent-carla",
+          "correlationId": "ev13-0003-73148941"
+        },
+        {
+          "at": "2026-11-04T06:19:09.032608Z",
+          "actor": "agent-carla",
+          "action": "status_changed",
+          "from": "assigned",
+          "to": "in_progress",
+          "note": "first response",
+          "correlationId": "ev13-0005-73149024"
+        }
+      ],
+      "responses": [
+        {
+          "at": "2026-11-04T06:19:09.032608Z",
+          "authorId": "agent-carla",
+          "message": "Please try the other access point while I check the controller."
+        }
+      ],
+      "requesterName": "Ana Reyes (Student)",
+      "assigneeName": "Carla Dizon"
+    }
+  },
+  {
+    "step": 6,
+    "at": "2026-11-04T06:19:09.072510Z",
+    "request": "POST /api/v1/tickets/TKT-0001/resolve",
+    "user": "agent-carla",
+    "correlationId": "ev13-0006-73149041",
+    "status": 200,
+    "durationMs": 23,
+    "response": {
+      "id": "TKT-0001",
+      "title": "Wifi keeps dropping in Room 204",
+      "description": "The wifi connection drops every few minutes during class.",
+      "requestedCategory": "auto",
+      "requestedPriority": "medium",
+      "category": "network",
+      "priority": "medium",
+      "status": "resolved",
+      "requesterId": "req-ana",
+      "assigneeId": "agent-carla",
+      "team": "network",
+      "createdAt": "2026-11-04T06:19:08.966203Z",
+      "updatedAt": "2026-11-04T06:19:09.056885Z",
+      "slaDueAt": "2026-11-05T06:19:08.966203Z",
+      "resolvedAt": "2026-11-04T06:19:09.056885Z",
+      "closedAt": null,
+      "routingReason": "keyword match: network (1 hit)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:08.966203Z",
+          "actor": "req-ana",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0003-73148941"
+        },
+        {
+          "at": "2026-11-04T06:19:08.974215Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: network (1 hit) -> agent-carla",
+          "correlationId": "ev13-0003-73148941"
+        },
+        {
+          "at": "2026-11-04T06:19:09.032608Z",
+          "actor": "agent-carla",
+          "action": "status_changed",
+          "from": "assigned",
+          "to": "in_progress",
+          "note": "first response",
+          "correlationId": "ev13-0005-73149024"
+        },
+        {
+          "at": "2026-11-04T06:19:09.056885Z",
+          "actor": "agent-carla",
+          "action": "status_changed",
+          "from": "in_progress",
+          "to": "resolved",
+          "note": "Replaced the faulty access point in Room 204.",
+          "correlationId": "ev13-0006-73149041"
+        }
+      ],
+      "responses": [
+        {
+          "at": "2026-11-04T06:19:09.032608Z",
+          "authorId": "agent-carla",
+          "message": "Please try the other access point while I check the controller."
+        }
+      ],
+      "requesterName": "Ana Reyes (Student)",
+      "assigneeName": "Carla Dizon"
+    }
+  },
+  {
+    "step": 7,
+    "at": "2026-11-04T06:19:09.088139Z",
+    "request": "POST /api/v1/tickets/TKT-0001/confirm",
+    "user": "req-ana",
+    "correlationId": "ev13-0007-73149072",
+    "status": 200,
+    "durationMs": 18,
+    "response": {
+      "id": "TKT-0001",
+      "title": "Wifi keeps dropping in Room 204",
+      "description": "The wifi connection drops every few minutes during class.",
+      "requestedCategory": "auto",
+      "requestedPriority": "medium",
+      "category": "network",
+      "priority": "medium",
+      "status": "closed",
+      "requesterId": "req-ana",
+      "assigneeId": "agent-carla",
+      "team": "network",
+      "createdAt": "2026-11-04T06:19:08.966203Z",
+      "updatedAt": "2026-11-04T06:19:09.072510Z",
+      "slaDueAt": "2026-11-05T06:19:08.966203Z",
+      "resolvedAt": "2026-11-04T06:19:09.056885Z",
+      "closedAt": "2026-11-04T06:19:09.072510Z",
+      "routingReason": "keyword match: network (1 hit)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:08.966203Z",
+          "actor": "req-ana",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0003-73148941"
+        },
+        {
+          "at": "2026-11-04T06:19:08.974215Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: network (1 hit) -> agent-carla",
+          "correlationId": "ev13-0003-73148941"
+        },
+        {
+          "at": "2026-11-04T06:19:09.032608Z",
+          "actor": "agent-carla",
+          "action": "status_changed",
+          "from": "assigned",
+          "to": "in_progress",
+          "note": "first response",
+          "correlationId": "ev13-0005-73149024"
+        },
+        {
+          "at": "2026-11-04T06:19:09.056885Z",
+          "actor": "agent-carla",
+          "action": "status_changed",
+          "from": "in_progress",
+          "to": "resolved",
+          "note": "Replaced the faulty access point in Room 204.",
+          "correlationId": "ev13-0006-73149041"
+        },
+        {
+          "at": "2026-11-04T06:19:09.072510Z",
+          "actor": "req-ana",
+          "action": "status_changed",
+          "from": "resolved",
+          "to": "closed",
+          "note": "requester confirmed resolution",
+          "correlationId": "ev13-0007-73149072"
+        }
+      ],
+      "responses": [
+        {
+          "at": "2026-11-04T06:19:09.032608Z",
+          "authorId": "agent-carla",
+          "message": "Please try the other access point while I check the controller."
+        }
+      ],
+      "requesterName": "Ana Reyes (Student)",
+      "assigneeName": "Carla Dizon"
+    }
+  },
+  {
+    "step": 8,
+    "at": "2026-11-04T06:19:09.638297Z",
+    "request": "POST /admin/fault",
+    "user": null,
+    "correlationId": "ev13-0008-73149623",
+    "status": 200,
+    "durationMs": 8,
+    "response": {
+      "failNext": 4,
+      "status": 503,
+      "delayMs": 0,
+      "delayCount": 0
+    }
+  },
+  {
+    "step": 9,
+    "at": "2026-11-04T06:19:09.653895Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ben",
+    "correlationId": "ev13-0009-73149638",
+    "status": 201,
+    "durationMs": 16,
+    "response": {
+      "id": "TKT-0002",
+      "title": "Excel crashes when opening reports",
+      "description": "Excel crash every time I open the monthly report file.",
+      "requestedCategory": "auto",
+      "requestedPriority": "high",
+      "category": "software",
+      "priority": "high",
+      "status": "assigned",
+      "requesterId": "req-ben",
+      "assigneeId": "agent-dan",
+      "team": "software",
+      "createdAt": "2026-11-04T06:19:09.638297Z",
+      "updatedAt": "2026-11-04T06:19:09.638297Z",
+      "slaDueAt": "2026-11-04T14:19:09.638297Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: software (2 hits)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:09.638297Z",
+          "actor": "req-ben",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0009-73149638"
+        },
+        {
+          "at": "2026-11-04T06:19:09.638297Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: software (2 hits) -> agent-dan",
+          "correlationId": "ev13-0009-73149638"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ben Santos (Employee)",
+      "assigneeName": "Dan Lim"
+    }
+  },
+  {
+    "step": 10,
+    "at": "2026-11-04T06:19:19.524353Z",
+    "request": "POST /admin/fault",
+    "user": null,
+    "correlationId": "ev13-0010-73159524",
+    "status": 200,
+    "durationMs": 4,
+    "response": {
+      "failNext": 0,
+      "status": 503,
+      "delayMs": 5000,
+      "delayCount": 1
+    }
+  },
+  {
+    "step": 11,
+    "at": "2026-11-04T06:19:19.539951Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ana",
+    "correlationId": "ev13-0011-73159524",
+    "status": 201,
+    "durationMs": 12,
+    "response": {
+      "id": "TKT-0003",
+      "title": "Projector has no signal",
+      "description": "The projector in AVR 1 shows no signal from the laptop.",
+      "requestedCategory": "auto",
+      "requestedPriority": "medium",
+      "category": "hardware",
+      "priority": "medium",
+      "status": "assigned",
+      "requesterId": "req-ana",
+      "assigneeId": "agent-eli",
+      "team": "hardware",
+      "createdAt": "2026-11-04T06:19:19.524353Z",
+      "updatedAt": "2026-11-04T06:19:19.524353Z",
+      "slaDueAt": "2026-11-05T06:19:19.524353Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: hardware (2 hits)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:19.524353Z",
+          "actor": "req-ana",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0011-73159524"
+        },
+        {
+          "at": "2026-11-04T06:19:19.524353Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: hardware (2 hits) -> agent-eli",
+          "correlationId": "ev13-0011-73159524"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ana Reyes (Student)",
+      "assigneeName": "Eli Ramos"
+    }
+  },
+  {
+    "step": 12,
+    "at": "2026-11-04T06:19:24.740373Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-gio",
+    "correlationId": "ev13-0012-73164724",
+    "status": 201,
+    "durationMs": 16,
+    "response": {
+      "id": "TKT-0004",
+      "title": "Cannot log in to the alumni portal",
+      "description": "My account is locked after the password reset.",
+      "requestedCategory": "auto",
+      "requestedPriority": "low",
+      "category": "account",
+      "priority": "low",
+      "status": "assigned",
+      "requesterId": "req-gio",
+      "assigneeId": "agent-faith",
+      "team": "accounts",
+      "createdAt": "2026-11-04T06:19:24.724890Z",
+      "updatedAt": "2026-11-04T06:19:24.724890Z",
+      "slaDueAt": "2026-11-07T06:19:24.724890Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: account (4 hits)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:24.724890Z",
+          "actor": "req-gio",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0012-73164724"
+        },
+        {
+          "at": "2026-11-04T06:19:24.724890Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: account (4 hits) -> agent-faith",
+          "correlationId": "ev13-0012-73164724"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Gio Cruz (Alumni account)",
+      "assigneeName": "Faith Torres"
+    }
+  },
+  {
+    "step": 13,
+    "at": "2026-11-04T06:19:25.290247Z",
+    "request": "GET /api/v1/automation/notifications?status=dead_letter",
+    "user": "sup-mara",
+    "correlationId": "ev13-0013-73165275",
+    "status": 200,
+    "durationMs": 8,
+    "response": [
+      {
+        "id": "MSG-00010",
+        "idempotencyKey": "TKT-0004:ticket.received:req-gio:0",
+        "ticketId": "TKT-0004",
+        "event": "ticket.received",
+        "recipientId": "req-gio",
+        "recipientAddress": "g***@invalid.test",
+        "subject": "[Help Desk] TKT-0004: ticket.received",
+        "correlationId": "ev13-0012-73164724",
+        "createdAt": "2026-11-04T06:19:24.724890Z",
+        "status": "dead_letter",
+        "attempts": 1,
+        "nextAttemptAt": "2026-11-04T06:19:24.724890Z",
+        "sentAt": null,
+        "lastErrorCode": "recipient_rejected",
+        "deadLetterReason": "permanent_rejection",
+        "resolutionNote": null,
+        "attemptLog": [
+          {
+            "at": "2026-11-04T06:19:24.755557Z",
+            "outcome": "permanent_failure",
+            "httpStatus": 422,
+            "errorCode": "recipient_rejected",
+            "durationMs": 5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "step": 14,
+    "at": "2026-11-04T06:19:25.305854Z",
+    "request": "POST /api/v1/automation/notifications/MSG-00010/dismiss",
+    "user": "sup-mara",
+    "correlationId": "ev13-0014-73165290",
+    "status": 200,
+    "durationMs": 16,
+    "response": {
+      "id": "MSG-00010",
+      "idempotencyKey": "TKT-0004:ticket.received:req-gio:0",
+      "ticketId": "TKT-0004",
+      "event": "ticket.received",
+      "recipientId": "req-gio",
+      "recipientAddress": "g***@invalid.test",
+      "subject": "[Help Desk] TKT-0004: ticket.received",
+      "correlationId": "ev13-0012-73164724",
+      "createdAt": "2026-11-04T06:19:24.724890Z",
+      "status": "dismissed",
+      "attempts": 1,
+      "nextAttemptAt": "2026-11-04T06:19:24.724890Z",
+      "sentAt": null,
+      "lastErrorCode": "recipient_rejected",
+      "deadLetterReason": "permanent_rejection",
+      "resolutionNote": "sup-mara: Mailbox decommissioned; requester informed by phone. Contact update requested.",
+      "attemptLog": [
+        {
+          "at": "2026-11-04T06:19:24.755557Z",
+          "outcome": "permanent_failure",
+          "httpStatus": 422,
+          "errorCode": "recipient_rejected",
+          "durationMs": 5
+        }
+      ]
+    }
+  },
+  {
+    "step": 15,
+    "at": "2026-11-04T06:19:25.321484Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ben",
+    "correlationId": "ev13-0015-73165305",
+    "status": 201,
+    "durationMs": 13,
+    "response": {
+      "id": "TKT-0005",
+      "title": "Question about the new room booking",
+      "description": "Who should I ask about the new booking process?",
+      "requestedCategory": "auto",
+      "requestedPriority": "low",
+      "category": "other",
+      "priority": "low",
+      "status": "needs_triage",
+      "requesterId": "req-ben",
+      "assigneeId": null,
+      "team": null,
+      "createdAt": "2026-11-04T06:19:25.305854Z",
+      "updatedAt": "2026-11-04T06:19:25.305854Z",
+      "slaDueAt": "2026-11-07T06:19:25.305854Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "no keyword matched",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:25.305854Z",
+          "actor": "req-ben",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0015-73165305"
+        },
+        {
+          "at": "2026-11-04T06:19:25.305854Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "needs_triage",
+          "note": "no routing rule matched",
+          "correlationId": "ev13-0015-73165305"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ben Santos (Employee)",
+      "assigneeName": null
+    }
+  },
+  {
+    "step": 16,
+    "at": "2026-11-04T06:19:25.337108Z",
+    "request": "POST /api/v1/tickets/TKT-0005/triage",
+    "user": "sup-mara",
+    "correlationId": "ev13-0016-73165321",
+    "status": 200,
+    "durationMs": 19,
+    "response": {
+      "id": "TKT-0005",
+      "title": "Question about the new room booking",
+      "description": "Who should I ask about the new booking process?",
+      "requestedCategory": "auto",
+      "requestedPriority": "low",
+      "category": "software",
+      "priority": "low",
+      "status": "assigned",
+      "requesterId": "req-ben",
+      "assigneeId": "agent-dan",
+      "team": "software",
+      "createdAt": "2026-11-04T06:19:25.305854Z",
+      "updatedAt": "2026-11-04T06:19:25.321484Z",
+      "slaDueAt": "2026-11-07T06:19:25.305854Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "triaged by sup-mara",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:25.305854Z",
+          "actor": "req-ben",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0015-73165305"
+        },
+        {
+          "at": "2026-11-04T06:19:25.305854Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "needs_triage",
+          "note": "no routing rule matched",
+          "correlationId": "ev13-0015-73165305"
+        },
+        {
+          "at": "2026-11-04T06:19:25.321484Z",
+          "actor": "sup-mara",
+          "action": "status_changed",
+          "from": "needs_triage",
+          "to": "assigned",
+          "note": "triaged -> agent-dan",
+          "correlationId": "ev13-0016-73165321"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ben Santos (Employee)",
+      "assigneeName": "Dan Lim"
+    }
+  },
+  {
+    "step": 17,
+    "at": "2026-11-04T06:19:25.352720Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ana",
+    "correlationId": "ev13-0017-73165337",
+    "status": 422,
+    "durationMs": 9,
+    "response": {
+      "error": {
+        "code": "validation_failed",
+        "message": "One or more fields are invalid.",
+        "details": {
+          "title": "Title must be 5-120 characters.",
+          "description": "Description must be 10-2000 characters.",
+          "priority": "Priority must be low, medium, high or critical.",
+          "_": "Unexpected fields: role"
+        },
+        "correlationId": "ev13-0017-73165337"
+      }
+    }
+  },
+  {
+    "step": 18,
+    "at": "2026-11-04T06:19:25.352720Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ana",
+    "correlationId": "ev13-0018-73165352",
+    "status": 400,
+    "durationMs": 8,
+    "response": {
+      "error": {
+        "code": "bad_request",
+        "message": "Body is not valid JSON.",
+        "correlationId": "ev13-0018-73165352"
+      }
+    }
+  },
+  {
+    "step": 19,
+    "at": "2026-11-04T06:19:25.368373Z",
+    "request": "GET /api/v1/tickets",
+    "user": null,
+    "correlationId": "ev13-0019-73165352",
+    "status": 401,
+    "durationMs": 8,
+    "response": {
+      "error": {
+        "code": "unauthenticated",
+        "message": "Sign in is required.",
+        "correlationId": "ev13-0019-73165352"
+      }
+    }
+  },
+  {
+    "step": 20,
+    "at": "2026-11-04T06:19:25.368373Z",
+    "request": "GET /api/v1/tickets",
+    "user": "mallory",
+    "correlationId": "ev13-0020-73165368",
+    "status": 401,
+    "durationMs": 6,
+    "response": {
+      "error": {
+        "code": "unauthenticated",
+        "message": "Sign in is required.",
+        "correlationId": "ev13-0020-73165368"
+      }
+    }
+  },
+  {
+    "step": 21,
+    "at": "2026-11-04T06:19:25.381922Z",
+    "request": "GET /api/v1/automation/notifications",
+    "user": "agent-carla",
+    "correlationId": "ev13-0021-73165368",
+    "status": 403,
+    "durationMs": 5,
+    "response": {
+      "error": {
+        "code": "forbidden",
+        "message": "You are not allowed to perform this action.",
+        "correlationId": "ev13-0021-73165368"
+      }
+    }
+  },
+  {
+    "step": 22,
+    "at": "2026-11-04T06:19:25.389187Z",
+    "request": "GET /api/v1/tickets/TKT-0002",
+    "user": "req-ana",
+    "correlationId": "ev13-0022-73165381",
+    "status": 404,
+    "durationMs": 5,
+    "response": {
+      "error": {
+        "code": "not_found",
+        "message": "Ticket was not found.",
+        "correlationId": "ev13-0022-73165381"
+      }
+    }
+  },
+  {
+    "step": 23,
+    "at": "2026-11-04T06:19:25.404854Z",
+    "request": "POST /api/v1/tickets/TKT-0002/confirm",
+    "user": "req-ben",
+    "correlationId": "ev13-0023-73165389",
+    "status": 409,
+    "durationMs": 17,
+    "response": {
+      "error": {
+        "code": "invalid_state",
+        "message": "Action not allowed while ticket is assigned.",
+        "correlationId": "ev13-0023-73165389"
+      }
+    }
+  },
+  {
+    "step": 24,
+    "at": "2026-11-04T06:19:25.420485Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ana",
+    "correlationId": "ev13-0024-73165404",
+    "status": 201,
+    "durationMs": 13,
+    "response": {
+      "id": "TKT-0006",
+      "title": "No internet in the library",
+      "description": "Ethernet ports in the library have no internet.",
+      "requestedCategory": "auto",
+      "requestedPriority": "medium",
+      "category": "network",
+      "priority": "medium",
+      "status": "assigned",
+      "requesterId": "req-ana",
+      "assigneeId": "agent-carla",
+      "team": "network",
+      "createdAt": "2026-11-04T06:19:25.404854Z",
+      "updatedAt": "2026-11-04T06:19:25.404854Z",
+      "slaDueAt": "2026-11-05T06:19:25.404854Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: network (2 hits)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:25.404854Z",
+          "actor": "req-ana",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0024-73165404"
+        },
+        {
+          "at": "2026-11-04T06:19:25.404854Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: network (2 hits) -> agent-carla",
+          "correlationId": "ev13-0024-73165404"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ana Reyes (Student)",
+      "assigneeName": "Carla Dizon"
+    }
+  },
+  {
+    "step": 25,
+    "at": "2026-11-04T06:19:25.436085Z",
+    "request": "PATCH /api/v1/agents/agent-carla/availability",
+    "user": "sup-mara",
+    "correlationId": "ev13-0025-73165420",
+    "status": 200,
+    "durationMs": 17,
+    "response": {
+      "id": "agent-carla",
+      "displayName": "Carla Dizon",
+      "role": "agent",
+      "team": "network",
+      "available": false
+    }
+  },
+  {
+    "step": 26,
+    "at": "2026-11-04T06:19:25.467335Z",
+    "request": "POST /api/v1/automation/jobs/aging-scan/run",
+    "user": "sup-mara",
+    "correlationId": "ev13-0026-73165436",
+    "status": 200,
+    "durationMs": 41,
+    "response": {
+      "id": "job-23fdc55b",
+      "job": "aging-scan",
+      "trigger": "manual",
+      "startedAt": "2026-11-04T06:19:25.436085Z",
+      "finishedAt": "2026-11-04T06:19:25.451722Z",
+      "durationMs": 15,
+      "status": "ok",
+      "stats": {
+        "scanned": 5,
+        "warnings": 0,
+        "breaches": 0,
+        "reassigned": 1,
+        "sentToTriage": 0
+      },
+      "correlationId": "job-23fdc55b"
+    }
+  },
+  {
+    "step": 27,
+    "at": "2026-11-04T06:19:25.482967Z",
+    "request": "GET /api/v1/tickets/TKT-0006",
+    "user": "sup-mara",
+    "correlationId": "ev13-0027-73165467",
+    "status": 200,
+    "durationMs": 7,
+    "response": {
+      "id": "TKT-0006",
+      "title": "No internet in the library",
+      "description": "Ethernet ports in the library have no internet.",
+      "requestedCategory": "auto",
+      "requestedPriority": "medium",
+      "category": "network",
+      "priority": "medium",
+      "status": "assigned",
+      "requesterId": "req-ana",
+      "assigneeId": "agent-noel",
+      "team": "network",
+      "createdAt": "2026-11-04T06:19:25.404854Z",
+      "updatedAt": "2026-11-04T06:19:25.436085Z",
+      "slaDueAt": "2026-11-05T06:19:25.404854Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: network (2 hits)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:25.404854Z",
+          "actor": "req-ana",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0024-73165404"
+        },
+        {
+          "at": "2026-11-04T06:19:25.404854Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: network (2 hits) -> agent-carla",
+          "correlationId": "ev13-0024-73165404"
+        },
+        {
+          "at": "2026-11-04T06:19:25.436085Z",
+          "actor": "system:aging",
+          "action": "status_changed",
+          "from": "assigned",
+          "to": "assigned",
+          "note": "auto-reassigned: agent-carla unavailable -> agent-noel",
+          "correlationId": "job-23fdc55b"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ana Reyes (Student)",
+      "assigneeName": "Noel Garcia"
+    }
+  },
+  {
+    "step": 28,
+    "at": "2026-11-04T06:19:25.498594Z",
+    "request": "PATCH /api/v1/agents/agent-carla/availability",
+    "user": "sup-mara",
+    "correlationId": "ev13-0028-73165482",
+    "status": 200,
+    "durationMs": 17,
+    "response": {
+      "id": "agent-carla",
+      "displayName": "Carla Dizon",
+      "role": "agent",
+      "team": "network",
+      "available": true
+    }
+  },
+  {
+    "step": 29,
+    "at": "2026-11-04T06:19:25.514211Z",
+    "request": "POST /api/v1/tickets",
+    "user": "req-ben",
+    "correlationId": "ev13-0029-73165498",
+    "status": 201,
+    "durationMs": 14,
+    "response": {
+      "id": "TKT-0007",
+      "title": "Laptop keyboard not working",
+      "description": "Several keys on my office laptop keyboard stopped working.",
+      "requestedCategory": "auto",
+      "requestedPriority": "high",
+      "category": "hardware",
+      "priority": "high",
+      "status": "assigned",
+      "requesterId": "req-ben",
+      "assigneeId": "agent-eli",
+      "team": "hardware",
+      "createdAt": "2026-11-04T06:19:25.498594Z",
+      "updatedAt": "2026-11-04T06:19:25.498594Z",
+      "slaDueAt": "2026-11-04T14:19:25.498594Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: hardware (2 hits)",
+      "escalated": false,
+      "alerts": [],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:25.498594Z",
+          "actor": "req-ben",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0029-73165498"
+        },
+        {
+          "at": "2026-11-04T06:19:25.498594Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: hardware (2 hits) -> agent-eli",
+          "correlationId": "ev13-0029-73165498"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ben Santos (Employee)",
+      "assigneeName": "Eli Ramos"
+    }
+  },
+  {
+    "step": 30,
+    "at": "2026-11-04T06:19:25.529842Z",
+    "request": "POST /api/v1/dev/clock/advance",
+    "user": "sup-mara",
+    "correlationId": "ev13-0030-73165514",
+    "status": 200,
+    "durationMs": 7,
+    "response": {
+      "now": "2026-11-04T12:49:25.514211Z",
+      "offsetMinutes": 390
+    }
+  },
+  {
+    "step": 31,
+    "at": "2026-11-04T06:19:25.561092Z",
+    "request": "POST /api/v1/automation/jobs/aging-scan/run",
+    "user": "sup-mara",
+    "correlationId": "ev13-0031-73165529",
+    "status": 200,
+    "durationMs": 34,
+    "response": {
+      "id": "job-739fa6f2",
+      "job": "aging-scan",
+      "trigger": "manual",
+      "startedAt": "2026-11-04T12:49:25.529842Z",
+      "finishedAt": "2026-11-04T12:49:25.529842Z",
+      "durationMs": 0,
+      "status": "ok",
+      "stats": {
+        "scanned": 6,
+        "warnings": 2,
+        "breaches": 0,
+        "reassigned": 0,
+        "sentToTriage": 0
+      },
+      "correlationId": "job-739fa6f2"
+    }
+  },
+  {
+    "step": 32,
+    "at": "2026-11-04T06:19:25.597917Z",
+    "request": "POST /api/v1/automation/jobs/aging-scan/run",
+    "user": "sup-mara",
+    "correlationId": "ev13-0032-73165561",
+    "status": 200,
+    "durationMs": 35,
+    "response": {
+      "id": "job-606d0160",
+      "job": "aging-scan",
+      "trigger": "manual",
+      "startedAt": "2026-11-04T12:49:25.561092Z",
+      "finishedAt": "2026-11-04T12:49:25.576715Z",
+      "durationMs": 15,
+      "status": "ok",
+      "stats": {
+        "scanned": 6,
+        "warnings": 0,
+        "breaches": 0,
+        "reassigned": 0,
+        "sentToTriage": 0
+      },
+      "correlationId": "job-606d0160"
+    }
+  },
+  {
+    "step": 33,
+    "at": "2026-11-04T06:19:25.597917Z",
+    "request": "POST /api/v1/dev/clock/advance",
+    "user": "sup-mara",
+    "correlationId": "ev13-0033-73165597",
+    "status": 200,
+    "durationMs": 7,
+    "response": {
+      "now": "2026-11-04T14:49:25.597917Z",
+      "offsetMinutes": 510
+    }
+  },
+  {
+    "step": 34,
+    "at": "2026-11-04T06:19:25.629173Z",
+    "request": "POST /api/v1/automation/jobs/aging-scan/run",
+    "user": "sup-mara",
+    "correlationId": "ev13-0034-73165597",
+    "status": 200,
+    "durationMs": 31,
+    "response": {
+      "id": "job-0bce3e06",
+      "job": "aging-scan",
+      "trigger": "manual",
+      "startedAt": "2026-11-04T14:49:25.597917Z",
+      "finishedAt": "2026-11-04T14:49:25.613540Z",
+      "durationMs": 15,
+      "status": "ok",
+      "stats": {
+        "scanned": 6,
+        "warnings": 0,
+        "breaches": 2,
+        "reassigned": 0,
+        "sentToTriage": 0
+      },
+      "correlationId": "job-0bce3e06"
+    }
+  },
+  {
+    "step": 35,
+    "at": "2026-11-04T06:19:25.644789Z",
+    "request": "GET /api/v1/tickets/TKT-0007",
+    "user": "sup-mara",
+    "correlationId": "ev13-0035-73165629",
+    "status": 200,
+    "durationMs": 5,
+    "response": {
+      "id": "TKT-0007",
+      "title": "Laptop keyboard not working",
+      "description": "Several keys on my office laptop keyboard stopped working.",
+      "requestedCategory": "auto",
+      "requestedPriority": "high",
+      "category": "hardware",
+      "priority": "high",
+      "status": "assigned",
+      "requesterId": "req-ben",
+      "assigneeId": "agent-eli",
+      "team": "hardware",
+      "createdAt": "2026-11-04T06:19:25.498594Z",
+      "updatedAt": "2026-11-04T06:19:25.498594Z",
+      "slaDueAt": "2026-11-04T14:19:25.498594Z",
+      "resolvedAt": null,
+      "closedAt": null,
+      "routingReason": "keyword match: hardware (2 hits)",
+      "escalated": true,
+      "alerts": [
+        "warning",
+        "breach"
+      ],
+      "history": [
+        {
+          "at": "2026-11-04T06:19:25.498594Z",
+          "actor": "req-ben",
+          "action": "submitted",
+          "from": null,
+          "to": "submitted",
+          "note": null,
+          "correlationId": "ev13-0029-73165498"
+        },
+        {
+          "at": "2026-11-04T06:19:25.498594Z",
+          "actor": "system:router",
+          "action": "status_changed",
+          "from": "submitted",
+          "to": "assigned",
+          "note": "keyword match: hardware (2 hits) -> agent-eli",
+          "correlationId": "ev13-0029-73165498"
+        },
+        {
+          "at": "2026-11-04T12:49:25.529842Z",
+          "actor": "system:aging",
+          "action": "sla_warning",
+          "from": null,
+          "to": null,
+          "note": "81% of SLA used",
+          "correlationId": "job-739fa6f2"
+        },
+        {
+          "at": "2026-11-04T14:49:25.597917Z",
+          "actor": "system:aging",
+          "action": "sla_breached",
+          "from": null,
+          "to": null,
+          "note": "escalated to supervisor",
+          "correlationId": "job-0bce3e06"
+        }
+      ],
+      "responses": [],
+      "requesterName": "Ben Santos (Employee)",
+      "assigneeName": "Eli Ramos"
+    }
+  },
+  {
+    "step": 36,
+    "at": "2026-11-04T06:19:25.689909Z",
+    "request": "POST /api/v1/automation/jobs/daily-summary/run",
+    "user": "sup-mara",
+    "correlationId": "ev13-0036-73165644",
+    "status": 200,
+    "durationMs": 43,
+    "response": {
+      "id": "job-95bf3236",
+      "job": "daily-summary",
+      "trigger": "manual",
+      "startedAt": "2026-11-04T14:49:25.644789Z",
+      "finishedAt": "2026-11-04T14:49:25.660418Z",
+      "durationMs": 15,
+      "status": "ok",
+      "stats": {
+        "summaryId": "SUM-1"
+      },
+      "correlationId": "job-95bf3236"
+    }
+  },
+  {
+    "step": 37,
+    "at": "2026-11-04T06:19:25.689909Z",
+    "request": "GET /api/v1/summaries/latest",
+    "user": "sup-mara",
+    "correlationId": "ev13-0037-73165689",
+    "status": 200,
+    "durationMs": 6,
+    "response": {
+      "id": "SUM-1",
+      "date": "2026-11-04",
+      "generatedAt": "2026-11-04T14:49:25.660418Z",
+      "trigger": "manual",
+      "data": {
+        "totals": {
+          "all": 7,
+          "open": 6,
+          "submittedToday": 7,
+          "closedToday": 1,
+          "breachedOpen": 2,
+          "awaitingTriage": 0
+        },
+        "byStatus": {
+          "closed": 1,
+          "assigned": 6
+        },
+        "openByCategory": {
+          "software": 2,
+          "hardware": 2,
+          "account": 1,
+          "network": 1
+        },
+        "openByAgent": {
+          "agent-dan": 2,
+          "agent-eli": 2,
+          "agent-faith": 1,
+          "agent-noel": 1
+        },
+        "avgResolutionMinutes": 0,
+        "notifications": {
+          "sent": 20,
+          "sentAfterRetry": 3,
+          "pendingOrRetrying": 0,
+          "deadLetter": 0
+        }
+      }
+    }
+  },
+  {
+    "step": 38,
+    "at": "2026-11-04T06:19:25.709689Z",
+    "request": "GET /admin/sent",
+    "user": null,
+    "correlationId": "ev13-0038-73165689",
+    "status": 200,
+    "durationMs": 9,
+    "response": [
+      {
+        "id": "GW-1",
+        "to": "a***@students.helpdesk.test",
+        "subject": "[Help Desk] TKT-0001: ticket.received",
+        "at": "2026-11-04T06:19:09.032608Z"
+      },
+      {
+        "id": "GW-2",
+        "to": "c***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0001: ticket.assigned",
+        "at": "2026-11-04T06:19:09.056885Z"
+      },
+      {
+        "id": "GW-3",
+        "to": "a***@students.helpdesk.test",
+        "subject": "[Help Desk] TKT-0001: ticket.response",
+        "at": "2026-11-04T06:19:09.112731Z"
+      },
+      {
+        "id": "GW-4",
+        "to": "a***@students.helpdesk.test",
+        "subject": "[Help Desk] TKT-0001: ticket.resolved",
+        "at": "2026-11-04T06:19:09.128399Z"
+      },
+      {
+        "id": "GW-5",
+        "to": "c***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0001: ticket.closed",
+        "at": "2026-11-04T06:19:09.144032Z"
+      },
+      {
+        "id": "GW-6",
+        "to": "b***@staff.helpdesk.test",
+        "subject": "[Help Desk] TKT-0002: ticket.received",
+        "at": "2026-11-04T06:19:19.446227Z"
+      },
+      {
+        "id": "GW-7",
+        "to": "d***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0002: ticket.assigned",
+        "at": "2026-11-04T06:19:19.461830Z"
+      },
+      {
+        "id": "GW-8",
+        "to": "e***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0003: ticket.assigned",
+        "at": "2026-11-04T06:19:22.572151Z"
+      },
+      {
+        "id": "GW-10",
+        "to": "a***@students.helpdesk.test",
+        "subject": "[Help Desk] TKT-0003: ticket.received",
+        "at": "2026-11-04T06:19:24.560528Z"
+      },
+      {
+        "id": "GW-10",
+        "to": "f***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0004: ticket.assigned",
+        "at": "2026-11-04T06:19:24.755557Z"
+      },
+      {
+        "id": "GW-11",
+        "to": "b***@staff.helpdesk.test",
+        "subject": "[Help Desk] TKT-0005: ticket.received",
+        "at": "2026-11-04T06:19:25.321484Z"
+      },
+      {
+        "id": "GW-12",
+        "to": "m***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0005: ticket.needs_triage",
+        "at": "2026-11-04T06:19:25.352720Z"
+      },
+      {
+        "id": "GW-13",
+        "to": "d***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0005: ticket.assigned",
+        "at": "2026-11-04T06:19:25.420485Z"
+      },
+      {
+        "id": "GW-14",
+        "to": "a***@students.helpdesk.test",
+        "subject": "[Help Desk] TKT-0006: ticket.received",
+        "at": "2026-11-04T06:19:25.451722Z"
+      },
+      {
+        "id": "GW-15",
+        "to": "c***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0006: ticket.assigned",
+        "at": "2026-11-04T06:19:25.467335Z"
+      },
+      {
+        "id": "GW-16",
+        "to": "n***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0006: ticket.reassigned",
+        "at": "2026-11-04T06:19:25.529842Z"
+      },
+      {
+        "id": "GW-17",
+        "to": "b***@staff.helpdesk.test",
+        "subject": "[Help Desk] TKT-0007: ticket.received",
+        "at": "2026-11-04T06:19:25.545462Z"
+      },
+      {
+        "id": "GW-18",
+        "to": "e***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0007: ticket.assigned",
+        "at": "2026-11-04T06:19:25.561092Z"
+      },
+      {
+        "id": "GW-19",
+        "to": "d***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0002: sla.warning",
+        "at": "2026-11-04T06:19:25.629173Z"
+      },
+      {
+        "id": "GW-20",
+        "to": "e***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0007: sla.warning",
+        "at": "2026-11-04T06:19:25.644789Z"
+      },
+      {
+        "id": "GW-21",
+        "to": "d***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0002: sla.breach",
+        "at": "2026-11-04T06:19:25.660418Z"
+      },
+      {
+        "id": "GW-22",
+        "to": "m***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0002: sla.breach",
+        "at": "2026-11-04T06:19:25.676047Z"
+      },
+      {
+        "id": "GW-23",
+        "to": "e***@support.helpdesk.test",
+        "subject": "[Help Desk] TKT-0007: sla.breach",
+        "at": "2026-11-04T06:19:25.689909Z"
+      }
+    ]
+  },
+  {
+    "step": 39,
+    "at": "2026-11-04T06:19:25.709689Z",
+    "request": "GET /api/v1/automation/runs",
+    "user": "sup-mara",
+    "correlationId": "ev13-0039-73165709",
+    "status": 200,
+    "durationMs": 8,
+    "response": [
+      {
+        "id": "job-95bf3236",
+        "job": "daily-summary",
+        "trigger": "manual",
+        "startedAt": "2026-11-04T14:49:25.644789Z",
+        "finishedAt": "2026-11-04T14:49:25.660418Z",
+        "durationMs": 15,
+        "status": "ok",
+        "stats": {
+          "summaryId": "SUM-1"
+        },
+        "correlationId": "job-95bf3236"
+      },
+      {
+        "id": "job-0bce3e06",
+        "job": "aging-scan",
+        "trigger": "manual",
+        "startedAt": "2026-11-04T14:49:25.597917Z",
+        "finishedAt": "2026-11-04T14:49:25.613540Z",
+        "durationMs": 15,
+        "status": "ok",
+        "stats": {
+          "scanned": 6,
+          "warnings": 0,
+          "breaches": 2,
+          "reassigned": 0,
+          "sentToTriage": 0
+        },
+        "correlationId": "job-0bce3e06"
+      },
+      {
+        "id": "job-74e056e9",
+        "job": "outbox-dispatch",
+        "trigger": "event",
+        "startedAt": "2026-11-04T06:19:25.498594Z",
+        "finishedAt": "2026-11-04T12:49:25.582259Z",
+        "durationMs": 23400083,
+        "status": "ok",
+        "stats": {
+          "processed": 3,
+          "sent": 3,
+          "retried": 0,
+          "deadLettered": 0
+        },
+        "correlationId": "job-74e056e9"
+      },
+      {
+        "id": "job-606d0160",
+        "job": "aging-scan",
+        "trigger": "manual",
+        "startedAt": "2026-11-04T12:49:25.561092Z",
+        "finishedAt": "2026-11-04T12:49:25.576715Z",
+        "durationMs": 15,
+        "status": "ok",
+        "stats": {
+          "scanned": 6,
+          "warnings": 0,
+          "breaches": 0,
+          "reassigned": 0,
+          "sentToTriage": 0
+        },
+        "correlationId": "job-606d0160"
+      },
+      {
+        "id": "job-739fa6f2",
+        "job": "aging-scan",
+        "trigger": "manual",
+        "startedAt": "2026-11-04T12:49:25.529842Z",
+        "finishedAt": "2026-11-04T12:49:25.529842Z",
+        "durationMs": 0,
+        "status": "ok",
+        "stats": {
+          "scanned": 6,
+          "warnings": 2,
+          "breaches": 0,
+          "reassigned": 0,
+          "sentToTriage": 0
+        },
+        "correlationId": "job-739fa6f2"
+      },
+      {
+        "id": "job-1ce640d4",
+        "job": "outbox-dispatch",
+        "trigger": "event",
+        "startedAt": "2026-11-04T06:19:25.404854Z",
+        "finishedAt": "2026-11-04T06:19:25.482967Z",
+        "durationMs": 78,
+        "status": "ok",
+        "stats": {
+          "processed": 3,
+          "sent": 3,
+          "retried": 0,
+          "deadLettered": 0
+        },
+        "correlationId": "job-1ce640d4"
+      },
+      {
+        "id": "job-23fdc55b",
+        "job": "aging-scan",
+        "trigger": "manual",
+        "startedAt": "2026-11-04T06:19:25.436085Z",
+        "finishedAt": "2026-11-04T06:19:25.451722Z",
+        "durationMs": 15,
+        "status": "ok",
+        "stats": {
+          "scanned": 5,
+          "warnings": 0,
+          "breaches": 0,
+          "reassigned": 1,
+          "sentToTriage": 0
+        },
+        "correlationId": "job-23fdc55b"
+      },
+      {
+        "id": "job-8cbdc2b6",
+        "job": "outbox-dispatch",
+        "trigger": "event",
+        "startedAt": "2026-11-04T06:19:25.305854Z",
+        "finishedAt": "2026-11-04T06:19:25.352720Z",
+        "durationMs": 46,
+        "status": "ok",
+        "stats": {
+          "processed": 2,
+          "sent": 2,
+          "retried": 0,
+          "deadLettered": 0
+        },
+        "correlationId": "job-8cbdc2b6"
+      },
+      {
+        "id": "job-9460c121",
+        "job": "outbox-dispatch",
+        "trigger": "event",
+        "startedAt": "2026-11-04T06:19:24.724890Z",
+        "finishedAt": "2026-11-04T06:19:24.771175Z",
+        "durationMs": 46,
+        "status": "ok",
+        "stats": {
+          "processed": 2,
+          "sent": 1,
+          "retried": 0,
+          "deadLettered": 1
+        },
+        "correlationId": "job-9460c121"
+      },
+      {
+        "id": "job-64774e2d",
+        "job": "outbox-dispatch",
+        "trigger": "scheduled",
+        "startedAt": "2026-11-04T06:19:24.435523Z",
+        "finishedAt": "2026-11-04T06:19:24.450556Z",
+        "durationMs": 15,
+        "status": "ok",
+        "stats": {
+          "processed": 1,
+          "sent": 1,
+          "retried": 0,
+          "deadLettered": 0
+        },
+        "correlationId": "job-64774e2d"
+      },
+      {
+        "id": "job-f85d3551",
+        "job": "outbox-dispatch",
+        "trigger": "event",
+        "startedAt": "2026-11-04T06:19:19.524353Z",
+        "finishedAt": "2026-11-04T06:19:22.587823Z",
+        "durationMs": 3063,
+        "status": "ok",
+        "stats": {
+          "processed": 2,
+          "sent": 1,
+          "retried": 1,
+          "deadLettered": 0
+        },
+        "correlationId": "job-f85d3551"
+      },
+      {
+        "id": "job-e91cb011",
+        "job": "outbox-dispatch",
+        "trigger": "scheduled",
+        "startedAt": "2026-11-04T06:19:19.446227Z",
+        "finishedAt": "2026-11-04T06:19:19.461830Z",
+        "durationMs": 15,
+        "status": "ok",
+        "stats": {
+          "processed": 2,
+          "sent": 2,
+          "retried": 0,
+          "deadLettered": 0
+        },
+        "correlationId": "job-e91cb011"
+      },
+      {
+        "id": "job-7b520835",
+        "job": "outbox-dispatch",
+        "trigger": "scheduled",
+        "startedAt": "2026-11-04T06:19:14.443239Z",
+        "finishedAt": "2026-11-04T06:19:14.473888Z",
+        "durationMs": 30,
+        "status": "ok",
+        "stats": {
+          "processed": 2,
+          "sent": 0,
+          "retried": 2,
+          "deadLettered": 0
+        },
+        "correlationId": "job-7b520835"
+      },
+      {
+        "id": "job-e2daa2ed",
+        "job": "outbox-dispatch",
+        "trigger": "event",
+        "startedAt": "2026-11-04T06:19:09.638297Z",
+        "finishedAt": "2026-11-04T06:19:09.696740Z",
+        "durationMs": 58,
+        "status": "ok",
+        "stats": {
+          "processed": 2,
+          "sent": 0,
+          "retried": 2,
+          "deadLettered": 0
+        },
+        "correlationId": "job-e2daa2ed"
+      },
+      {
+        "id": "job-ff000e6a",
+        "job": "outbox-dispatch",
+        "trigger": "event",
+        "startedAt": "2026-11-04T06:19:09.072510Z",
+        "finishedAt": "2026-11-04T06:19:09.144032Z",
+        "durationMs": 71,
+        "status": "ok",
+        "stats": {
+          "processed": 3,
+          "sent": 3,
+          "retried": 0,
+          "deadLettered": 0
+        },
+        "correlationId": "job-ff000e6a"
+      },
+      {
+        "id": "job-6130b01d",
+        "job": "outbox-dispatch",
+        "trigger": "event",
+        "startedAt": "2026-11-04T06:19:08.982642Z",
+        "finishedAt": "2026-11-04T06:19:09.072510Z",
+        "durationMs": 89,
+        "status": "ok",
+        "stats": {
+          "processed": 2,
+          "sent": 2,
+          "retried": 0,
+          "deadLettered": 0
+        },
+        "correlationId": "job-6130b01d"
+      }
+    ]
+  }
+]
