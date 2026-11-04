@@ -1,0 +1,20 @@
+name: helpdesk_web
+description: Flutter Web client for the IT Help Desk Ticket Router (PFEBSIT 002, Project 16).
+publish_to: 'none'
+version: 0.13.0+1
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
