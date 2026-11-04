@@ -1,0 +1,293 @@
+openapi: 3.0.3
+info:
+  title: IT Help Desk Ticket Router API
+  version: 0.13.0
+  description: |
+    Backend API for PFEBSIT 002 Project 16 (Week 13 automation foundation).
+    Week 13 identity uses the `X-Demo-User` header naming a seeded fictional user; the server
+    looks up the role. This is replaced by token authentication in Week 14.
+    Every response carries `X-Correlation-Id` (echoed if the client sent a well-formed one).
+servers:
+  - url: http://127.0.0.1:8080
+    description: Local controlled test environment
+
+components:
+  securitySchemes:
+    demoUser:
+      type: apiKey
+      in: header
+      name: X-Demo-User
+      description: Week 13 demo identity only. Not a security control.
+  parameters:
+    TicketId:
+      name: id
+      in: path
+      required: true
+      schema: { type: string, example: TKT-0001 }
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: false
+      schema: { type: string, pattern: '^[A-Za-z0-9-]{8,64}$' }
+  responses:
+    Error:
+      description: Error (400 bad_request, 401 unauthenticated, 403 forbidden, 404 not_found, 409 invalid_state, 413 payload_too_large, 422 validation_failed, 500 internal_error)
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          required: [code, message, correlationId]
+          properties:
+            code: { type: string, example: validation_failed }
+            message: { type: string }
+            details:
+              type: object
+              additionalProperties: { type: string }
+              example: { title: Title must be 5-120 characters. }
+            correlationId: { type: string }
+    User:
+      type: object
+      properties:
+        id: { type: string, example: agent-carla }
+        displayName: { type: string }
+        role: { type: string, enum: [requester, agent, supervisor] }
+        team: { type: string, nullable: true, example: network }
+        available: { type: boolean }
+        openTickets: { type: integer, description: Only on GET /agents }
+    CreateTicket:
+      type: object
+      additionalProperties: false
+      required: [title, description, priority]
+      properties:
+        title: { type: string, minLength: 5, maxLength: 120 }
+        description: { type: string, minLength: 10, maxLength: 2000 }
+        category: { type: string, enum: [auto, network, account, hardware, software, other], default: auto }
+        priority: { type: string, enum: [low, medium, high, critical] }
+    AuditEvent:
+      type: object
+      properties:
+        at: { type: string, format: date-time }
+        actor: { type: string, example: 'system:router' }
+        action: { type: string, example: status_changed }
+        from: { type: string, nullable: true }
+        to: { type: string, nullable: true }
+        note: { type: string, nullable: true }
+        correlationId: { type: string }
+    Ticket:
+      type: object
+      properties:
+        id: { type: string }
+        title: { type: string }
+        description: { type: string }
+        requestedCategory: { type: string }
+        requestedPriority: { type: string }
+        category: { type: string }
+        priority: { type: string }
+        status: { type: string, enum: [submitted, needs_triage, assigned, in_progress, resolved, closed] }
+        requesterId: { type: string }
+        requesterName: { type: string }
+        assigneeId: { type: string, nullable: true }
+        assigneeName: { type: string, nullable: true }
+        team: { type: string, nullable: true }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+        slaDueAt: { type: string, format: date-time }
+        resolvedAt: { type: string, format: date-time, nullable: true }
+        closedAt: { type: string, format: date-time, nullable: true }
+        routingReason: { type: string, example: 'keyword match: network (1 hit)' }
+        escalated: { type: boolean }
+        alerts: { type: array, items: { type: string, enum: [warning, breach] } }
+        history: { type: array, items: { $ref: '#/components/schemas/AuditEvent' } }
+        responses:
+          type: array
+          items:
+            type: object
+            properties:
+              at: { type: string, format: date-time }
+              authorId: { type: string }
+              message: { type: string }
+    Notification:
+      type: object
+      description: Outbox message. Recipient address is masked; body is not returned.
+      properties:
+        id: { type: string, example: MSG-00006 }
+        idempotencyKey: { type: string, example: 'TKT-0002:ticket.received:req-ben:0' }
+        ticketId: { type: string, nullable: true }
+        event: { type: string, example: ticket.received }
+        recipientId: { type: string }
+        recipientAddress: { type: string, example: 'b***@staff.helpdesk.test' }
+        status: { type: string, enum: [pending, sending, retrying, sent, dead_letter, dismissed] }
+        attempts: { type: integer }
+        nextAttemptAt: { type: string, format: date-time }
+        lastErrorCode: { type: string, nullable: true }
+        deadLetterReason: { type: string, nullable: true, enum: [permanent_rejection, retries_exhausted] }
+        resolutionNote: { type: string, nullable: true }
+        attemptLog:
+          type: array
+          items:
+            type: object
+            properties:
+              at: { type: string, format: date-time }
+              outcome: { type: string, enum: [sent, transient_failure, permanent_failure] }
+              httpStatus: { type: integer, nullable: true }
+              errorCode: { type: string, nullable: true }
+              durationMs: { type: integer }
+    JobRun:
+      type: object
+      properties:
+        id: { type: string }
+        job: { type: string, enum: [aging-scan, outbox-dispatch, daily-summary] }
+        trigger: { type: string, enum: [scheduled, event, manual] }
+        startedAt: { type: string, format: date-time }
+        finishedAt: { type: string, format: date-time }
+        durationMs: { type: integer }
+        status: { type: string, enum: [ok, failed] }
+        stats: { type: object, additionalProperties: true }
+
+security:
+  - demoUser: []
+
+paths:
+  /health:
+    get:
+      summary: Liveness and dependency status
+      security: []
+      responses:
+        '200':
+          description: status is "ok" or "degraded" (gateway unreachable)
+  /api/v1/demo/users:
+    get:
+      summary: Seeded demo users (only when DEMO_AUTH_ENABLED=true)
+      security: []
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/User' } } } } }
+  /api/v1/me:
+    get:
+      summary: Current user
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/User' } } } }
+        default: { $ref: '#/components/responses/Error' }
+  /api/v1/agents:
+    get:
+      summary: Agents with availability and open load (agent, supervisor)
+      responses:
+        '200': { description: OK }
+        default: { $ref: '#/components/responses/Error' }
+  /api/v1/agents/{id}/availability:
+    patch:
+      summary: Mark an agent available/unavailable (supervisor)
+      parameters: [{ name: id, in: path, required: true, schema: { type: string } }]
+      requestBody:
+        required: true
+        content: { application/json: { schema: { type: object, required: [available], properties: { available: { type: boolean } } } } }
+      responses:
+        '200': { description: Updated agent }
+        default: { $ref: '#/components/responses/Error' }
+  /api/v1/tickets:
+    get:
+      summary: List tickets visible to the caller (requester own, agent team/assigned, supervisor all)
+      parameters:
+        - { name: status, in: query, schema: { type: string } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Ticket' } } } } }
+        default: { $ref: '#/components/responses/Error' }
+    post:
+      summary: Submit a ticket (requester). Triggers rule-based routing immediately.
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: Same key from the same user returns the original ticket instead of a duplicate.
+          schema: { type: string, pattern: '^[A-Za-z0-9-]{8,64}$' }
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: '#/components/schemas/CreateTicket' } } }
+      responses:
+        '201': { description: Created (status assigned or needs_triage), content: { application/json: { schema: { $ref: '#/components/schemas/Ticket' } } } }
+        default: { $ref: '#/components/responses/Error' }
+  /api/v1/tickets/{id}:
+    get:
+      summary: Ticket detail (404 if missing or not visible to caller)
+      parameters: [{ $ref: '#/components/parameters/TicketId' }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Ticket' } } } }
+        default: { $ref: '#/components/responses/Error' }
+  /api/v1/tickets/{id}/responses:
+    post:
+      summary: Agent response (assigned -> in_progress) or requester comment
+      parameters: [{ $ref: '#/components/parameters/TicketId' }]
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [message], properties: { message: { type: string, minLength: 2, maxLength: 2000 } } } } } }
+      responses: { '200': { description: Updated ticket }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/tickets/{id}/resolve:
+    post:
+      summary: Resolve (assigned agent or supervisor; assigned/in_progress only)
+      parameters: [{ $ref: '#/components/parameters/TicketId' }]
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [resolution], properties: { resolution: { type: string, minLength: 5, maxLength: 1000 } } } } } }
+      responses: { '200': { description: Updated ticket }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/tickets/{id}/confirm:
+    post:
+      summary: Requester confirms the fix (resolved -> closed)
+      parameters: [{ $ref: '#/components/parameters/TicketId' }]
+      responses: { '200': { description: Updated ticket }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/tickets/{id}/reopen:
+    post:
+      summary: Requester reopens (resolved -> in_progress)
+      parameters: [{ $ref: '#/components/parameters/TicketId' }]
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [reason], properties: { reason: { type: string, minLength: 5, maxLength: 500 } } } } } }
+      responses: { '200': { description: Updated ticket }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/tickets/{id}/reassign:
+    post:
+      summary: Manual reassignment (supervisor)
+      parameters: [{ $ref: '#/components/parameters/TicketId' }]
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [agentId, reason], properties: { agentId: { type: string }, reason: { type: string, minLength: 5 } } } } } }
+      responses: { '200': { description: Updated ticket }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/tickets/{id}/triage:
+    post:
+      summary: Route a needs_triage ticket (supervisor)
+      parameters: [{ $ref: '#/components/parameters/TicketId' }]
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [category, priority], properties: { category: { type: string, enum: [network, account, hardware, software] }, priority: { type: string, enum: [low, medium, high, critical] } } } } } }
+      responses: { '200': { description: Updated ticket }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/automation/notifications:
+    get:
+      summary: Notification outbox (supervisor)
+      parameters: [{ name: status, in: query, schema: { type: string } }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Notification' } } } } }
+        default: { $ref: '#/components/responses/Error' }
+  /api/v1/automation/notifications/{id}/retry:
+    post:
+      summary: Re-queue a dead-lettered notification with a fresh retry budget (supervisor)
+      parameters: [{ name: id, in: path, required: true, schema: { type: string } }]
+      responses: { '200': { description: Updated notification }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/automation/notifications/{id}/dismiss:
+    post:
+      summary: Close a dead-lettered notification after manual handling (supervisor)
+      parameters: [{ name: id, in: path, required: true, schema: { type: string } }]
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [note], properties: { note: { type: string, minLength: 5 } } } } } }
+      responses: { '200': { description: Updated notification }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/automation/runs:
+    get:
+      summary: Recent scheduled/event/manual job runs (supervisor)
+      parameters: [{ name: job, in: query, schema: { type: string } }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/JobRun' } } } } }
+  /api/v1/automation/jobs/{job}/run:
+    post:
+      summary: Run a job now (supervisor). 409 if the same job is already running.
+      parameters: [{ name: job, in: path, required: true, schema: { type: string, enum: [aging-scan, outbox-dispatch, daily-summary] } }]
+      responses: { '200': { description: JobRun, content: { application/json: { schema: { $ref: '#/components/schemas/JobRun' } } } }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/summaries/latest:
+    get:
+      summary: Latest support summary (agent, supervisor). 404 if none yet.
+      responses: { '200': { description: OK }, default: { $ref: '#/components/responses/Error' } }
+  /api/v1/dev/clock/advance:
+    post:
+      summary: Development only (APP_ENV=development, supervisor) - advance the server clock to demonstrate SLA aging
+      requestBody: { required: true, content: { application/json: { schema: { type: object, required: [minutes], properties: { minutes: { type: integer, minimum: 1, maximum: 10080 } } } } } }
+      responses: { '200': { description: New server time }, default: { $ref: '#/components/responses/Error' } }
