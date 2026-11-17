@@ -1,0 +1,40 @@
+# API adverse-case run 2026-11-11T15:11:34+08:00 against http://127.0.0.1:8000/api/v1 (local, REQUIRE_HTTPS=false)
+
+## 1. Wrong password
+{"message":"Invalid credentials."}  -> HTTP 401
+
+## 2. No token
+{"message":"Unauthenticated."}  -> HTTP 401
+
+## 3. Forged token
+{"message":"Unauthenticated."}  -> HTTP 401
+
+## 4. Student login OK (token not recorded)
+
+## 5. Student opens employee's ticket #2 (not theirs)
+{"message":"You are not permitted to perform this action."}  -> HTTP 403
+
+## 6. Student tries to resolve own ticket #1
+{"message":"You are not permitted to perform this action."}  -> HTTP 403
+
+## 7. Invalid ticket input
+{"message":"The selected category is invalid. (and 3 more errors)","errors":{"category":["The selected category is invalid."],"subject":["The subject field must be at least 5 characters."],"description":["The description field must be at least 10 characters."],"contact_number":["Contact number must contain 7-20 digits, spaces, or hyphens."]}}  -> HTTP 422
+
+## 8. Student views own ticket #1 (contact number decrypted for owner)
+{"data":{"id":1,"reference":"HD-2026-000001","category":"network","priority":"high","status":"assigned","source":"web","subject":"Wi-Fi drops in Library 2F","description":"Connection to the campus Wi-Fi drops every few minutes on the second floor of the library.","asset_tag":null,"contact_number":"0917 555 0101","access_note":null,"resolution_note":null,"requester":{"id":1,"name":"Sam Student"},"a
+
+## 9. Raw database value of tickets.contact_number for #1 (ciphertext at rest)
+eyJpdiI6InFOYlJmbzRubTVmak1ZSUsvZUd2a2c9PSIsInZhbHVlIjoiTGZlNHM0T2NrbGh3TFlQc3dYUUtLUT09Ii..
+
+
+## 10. Response security headers
+Cache-Control: no-store, private
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer
+Content-Security-Policy: default-src 'none'; frame-ancestors 'none'
+X-Correlation-Id: b446507c-d1fa-4964-b7fa-c006b3cf9127
+Access-Control-Expose-Headers: X-Correlation-Id
+
+## 11. Logout then reuse token
+{"message":"Unauthenticated."}  -> HTTP 401

@@ -1,116 +1,87 @@
-# IT Help Desk Ticket Router — Project 16
+# IT Help Desk Ticket Router (Project 16)
 
-PFEBSIT 002 Integrative Programming and Technologies 2 · Weeks 13–18 individual project
-Flutter Web client + Laravel 13 / MySQL backend API · controlled, fictional data only.
+PFEBSIT 002 Integrative Programming and Technologies 2, Weeks 13–18 individual project.
+Current milestone: **Week 14: Secure Data Exchange and Encryption (SA8 and IA5)**.
 
-**Current milestone: Week 13 — Automation Foundation (SA7).** Report: [docs/week13_report.md](docs/week13_report.md)
+| Layer | Technology |
+|---|---|
+| Web client | Flutter Web (Flutter 3.47, Dart 3.13) in `frontend/` |
+| Backend API | **Laravel 13** (PHP 8.4) with Laravel Sanctum in `backend/` |
+| Database | SQLite for the lab. MySQL/MariaDB is the deployment target. |
 
-## What it does
+> Prototype for coursework. It uses fictional data only and is **not production ready**.
 
-Requesters submit IT problems. The backend categorises each ticket by keyword rules, sets its priority and SLA, and assigns it to the least-loaded available agent in the right team (or sends it to a supervisor for triage). Agents respond and resolve; requesters confirm or reopen. Automation:
+## Bounded workflow
 
-- **Rule-based assignment** on submit (event-driven)
-- **SLA aging alerts** — warning at 75 %, escalation at 100 % (scheduled scan, every 60 s)
-- **Reassignment** when an agent is marked unavailable
-- **Failed-notification recovery** — transactional outbox, bounded retry with backoff, dead-letter → supervisor manual review
-- **Support summaries** — daily at 18:00 local, or on demand
+A requester (student or employee) submits a ticket. Rule-based routing assigns it to the least-loaded active agent who specialises in that category. The agent starts work and resolves the ticket with a note. The requester then confirms the fix (closed) or rejects it (reopened). A supervisor sees everything and can reassign. An email gateway can also create tickets through an HMAC-signed endpoint.
 
-## Folder layout
+## Week 14 security controls
 
-```
-helpdesk_ticket_router/
-  backend-laravel/             Laravel API (current backend) — see backend-laravel/README.md
-    routes/api.php             API routes (same contract as docs/openapi.yaml)
-    app/Services/              tickets, rules, outbox, retry, aging, summaries, job runner
-    routes/console.php         scheduler + `php artisan helpdesk:job`
-    database/                  MySQL migration and seed users
-    gateway/mock_gateway.php   mock notification service (fault injection)
-    tests/                     41 PHPUnit tests (MySQL test database)
-  backend/                     original Dart (shelf) backend, kept for reference
-    bin/server.dart            API server
-    bin/mock_gateway.dart      mock notification service (fault injection)
-    lib/src/                   api, tickets, rules, outbox, retry, automation, store, logger, config
-    config/routing_rules.json  routing keywords -> team (editable without code changes)
-    test/                      36 automated tests
-    tool/run_evidence.dart     runs the Week 13 scenarios and writes evidence/
-    .env.example               configuration template (no secrets)
-  frontend/                    Flutter Web app (lib/src/screens, widgets, api_client) + 5 widget tests
-  docs/
-    week13_report.md           SA7 submission
-    openapi.yaml               API contract
-  evidence/
-    week13_run.md / .json      scenario results with correlation ids
-    app_structured.log         backend structured log from the evidence run
-    mock_gateway.log           gateway log (injected faults, deliveries)
-    screenshots/               desktop and phone-width screenshots
-```
+| Control | Where |
+|---|---|
+| Bearer tokens (Sanctum), stored as SHA-256 hashes, 60-minute expiry, revoked on logout | `AuthController`, `config/sanctum.php` |
+| Login rate limit (5/min per email+IP), generic error, timing-equalised check | `AppServiceProvider`, `AuthController` |
+| Role + ownership authorisation | `app/Policies/TicketPolicy.php`, list scoping in `TicketController@index` |
+| Server-side validation (authoritative) and data minimisation | `app/Http/Requests/*` |
+| Field encryption at rest (AES-256-CBC + HMAC-SHA256, Laravel `Crypt`) for `contact_number` and `access_note`, with tamper detection | `app/Casts/ProtectedString.php` |
+| Role-based masking of protected fields in responses | `app/Http/Resources/TicketResource.php` |
+| HMAC-SHA256 signed gateway messages: key id, timestamp window, nonce replay check | `app/Http/Middleware/VerifyIntegrationSignature.php`, `app/Services/MessageSigner.php` |
+| HTTPS required (403 on plain HTTP), HSTS, security headers, strict CORS | `RequireHttps`, `SecurityHeaders`, `config/cors.php` |
+| Correlation IDs plus log redaction of secrets and protected fields | `AssignCorrelationId`, `app/Logging/RedactSensitiveData.php` |
+| Append-only audit trail of state changes | `ticket_events` table, `TicketRouter::record()` |
 
-## Setup
+## Run locally
 
-Requirements: PHP 8.3+ with `pdo_mysql`, Composer, MySQL/MariaDB (XAMPP works), and the Flutter SDK (stable, web enabled).
+Backend:
 
 ```bash
-cd backend-laravel
+cd backend
 composer install
-cp .env.example .env        # then change GATEWAY_API_KEY to any local value
+cp .env.example .env
 php artisan key:generate
-mysql -u root -e "CREATE DATABASE helpdesk CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
-php artisan migrate --seed
 ```
+
+In `.env`, set `REQUIRE_HTTPS=false` (local only) and give each of these a value:
+`INTEGRATION_HMAC_KEYS=gw-2026a:<64 hex chars>`, `GATEWAY_KEY_ID=gw-2026a`, `GATEWAY_URL=http://127.0.0.1:8010/api/v1/integrations/email-gateway/tickets`.
+
+```bash
+php artisan migrate:fresh --seed
+php artisan serve --port=8010
+```
+
+Frontend (in a second terminal):
 
 ```bash
 cd frontend
 flutter pub get
+flutter run -d chrome --web-port 5000 --dart-define=API_BASE_URL=http://127.0.0.1:8010/api/v1
 ```
 
-## Run (four terminals)
+Demo accounts (password `Demo-Pass-2026!`, lab only): `student@example.test`, `employee@example.test`, `agent.network@example.test`, `agent.hardware@example.test`, `agent.accounts@example.test`, `supervisor@example.test`.
 
-1. Mock notification gateway:
-   ```bash
-   cd backend-laravel && php -S 127.0.0.1:8091 gateway/mock_gateway.php
-   ```
-2. API server (http://127.0.0.1:8080):
-   ```bash
-   cd backend-laravel && php artisan serve --host=127.0.0.1 --port=8080
-   ```
-3. Scheduler (outbox dispatch, SLA aging scan, daily summary):
-   ```bash
-   cd backend-laravel && php artisan schedule:work
-   ```
-4. Flutter Web client:
-   ```bash
-   cd frontend && flutter run -d chrome --dart-define=API_BASE_URL=http://127.0.0.1:8080
-   ```
-
-Sign in by choosing a demo user: **Ana / Ben / Gio** (requesters — Gio's mailbox is deliberately invalid), **Carla, Noel, Dan, Eli, Faith** (agents), **Mara** (supervisor).
-Week 13 uses a demo identity header (`X-Demo-User`); real authentication is added in Week 14.
-
-To start with fresh data: `cd backend-laravel && php artisan migrate:fresh --seed`.
-
-## Tests
+## Tests and evidence
 
 ```bash
-mysql -u root -e "CREATE DATABASE helpdesk_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
-```
-
-```bash
-cd backend-laravel && php artisan test
-```
-
-```bash
+cd backend && php artisan test
 cd frontend && flutter test
+cd backend && php artisan gateway:send --tamper
 ```
 
-Inject faults by hand (gateway must be running):
+`gateway:send` also accepts `--expired`, `--replay`, and `--wrong-key`.
 
-```bash
-curl -X POST http://127.0.0.1:8091/admin/fault -H "Content-Type: application/json" -d "{\"failNext\": 2, \"status\": 503}"
-```
+Saved results are in `evidence/week14/`:
 
-## Configuration
+| File | Content |
+|---|---|
+| `01-phpunit-testdox.txt` | 46 backend tests (auth, authorisation, encryption, HMAC, transport) |
+| `02-gateway-simulator.txt` | Live signed-message runs: valid, tampered, expired, wrong key, replay |
+| `03-api-adverse-cases.txt` | Live curl run: bad login, missing/forged/revoked token, IDOR, validation, ciphertext at rest, headers |
+| `04-protected-log-excerpt.txt` | Log lines with correlation ids and rejection reasons, no secrets |
+| `05-flutter-tests.txt` | Flutter widget and API-client tests |
+| `06-secret-scan.txt` | Repository secret scan |
+| `data-flow-diagram.png` | Trust boundaries and flows |
+| `ui-*.jpg` | Flutter Web screens, including the 375 px layout and validation states |
 
-All settings are in `backend-laravel/.env` (see `.env.example`): database connection, retry limits, outbox poll interval, SLA hours per priority, warning ratio, summary hour, allowed CORS origins. `.env`, `vendor/` and `storage/logs/` are git-ignored. The Flutter app only receives the API base URL; it never holds a secret.
+## Deployment note (HTTPS)
 
-## Known limitations (Week 13)
-
-Demo identity only, plain HTTP on localhost, a single global write lock in MySQL, mock gateway, keyword routing. See section 9 of the report. Not production ready.
+TLS is terminated at a reverse proxy (Nginx or Caddy) in front of `php artisan serve` / PHP-FPM. Set `TRUSTED_PROXIES` to the proxy address so Laravel honours `X-Forwarded-Proto`. Keep `REQUIRE_HTTPS=true` and `APP_DEBUG=false`. Load secrets from the host's secret store, never from the repository.

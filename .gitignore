@@ -1,8 +1,12 @@
-# Secrets and local runtime data
-backend/.env
-backend/data/
-backend/logs/
-**/*.tmp
+# Secrets and local runtime data (examples such as .env.example ARE committed)
+.env
+*.sqlite
+*.log
+.phpunit.result.cache
+
+# PHP / Laravel
+backend/vendor/
+backend/bootstrap/cache/*.php
 
 # Dart / Flutter
 .dart_tool/

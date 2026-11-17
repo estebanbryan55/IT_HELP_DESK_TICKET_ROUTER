@@ -2,101 +2,74 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:helpdesk_web/api/api_client.dart';
 import 'package:helpdesk_web/main.dart';
-import 'package:helpdesk_web/src/api_client.dart';
-import 'package:helpdesk_web/src/screens/new_ticket.dart';
-import 'package:helpdesk_web/src/session.dart';
+import 'package:helpdesk_web/state/session.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
-const _ana = {'id': 'req-ana', 'displayName': 'Ana Reyes (Student)', 'role': 'requester', 'team': null, 'available': true};
-
-http.Response _json(Object body, [int status = 200]) =>
-    http.Response(jsonEncode(body), status, headers: {'content-type': 'application/json'});
-
-Future<Session> _signedIn(MockClient client) async {
-  final s = Session(ApiClient(baseUrl: 'http://api.test', client: client));
-  await s.signInAs('req-ana');
-  return s;
-}
-
-Widget _form(Session s) => SessionScope(
-      session: s,
-      child: MaterialApp(home: Scaffold(body: NewTicketScreen(onCreated: () {}))),
-    );
-
 void main() {
-  test('client validators mirror server rules', () {
-    expect(validateTitle(''), isNotNull);
-    expect(validateTitle('Hi'), isNotNull);
-    expect(validateTitle('Wifi down'), isNull);
-    expect(validateDescription('short'), isNotNull);
-    expect(validateDescription('Long enough description'), isNull);
-  });
+  testWidgets('login form validates before calling the API', (tester) async {
+    await tester.pumpWidget(HelpDeskApp(session: Session()));
 
-  testWidgets('empty form shows validation messages and sends nothing', (tester) async {
-    var posts = 0;
-    final s = await _signedIn(MockClient((r) async {
-      if (r.method == 'POST') posts++;
-      return _json(_ana);
-    }));
-    await tester.pumpWidget(_form(s));
-    await tester.tap(find.byKey(const Key('submit')));
+    await tester.tap(find.text('Sign in').last);
     await tester.pump();
+    expect(find.text('Email is required'), findsOneWidget);
+    expect(find.text('Password is required'), findsOneWidget);
 
-    expect(find.text('Title is required.'), findsOneWidget);
-    expect(find.text('Description is required.'), findsOneWidget);
-    expect(find.text('Choose a priority.'), findsOneWidget);
-    expect(posts, 0);
+    await tester.enterText(find.byType(TextFormField).first, 'not-an-email');
+    await tester.tap(find.text('Sign in').last);
+    await tester.pump();
+    expect(find.text('Enter a valid email'), findsOneWidget);
   });
 
-  testWidgets('server validation errors are shown on the matching field', (tester) async {
-    String? idemKey;
-    final s = await _signedIn(MockClient((r) async {
-      if (r.method == 'POST') {
-        idemKey = r.headers['Idempotency-Key'];
-        return _json({
-          'error': {'code': 'validation_failed', 'message': 'One or more fields are invalid.', 'details': {'title': 'Title rejected by server.'}}
-        }, 422);
-      }
-      return _json(_ana);
-    }));
-    await tester.pumpWidget(_form(s));
-    await tester.enterText(find.byKey(const Key('title')), 'Printer jam');
-    await tester.enterText(find.byKey(const Key('description')), 'The 2F printer is jammed again.');
-    await tester.tap(find.byKey(const Key('priority')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Medium').last);
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('submit')));
-    await tester.pumpAndSettle();
+  group('ApiClient error mapping', () {
+    ApiClient clientReturning(int status, Map<String, dynamic> body, {void Function()? onUnauth}) {
+      final api = ApiClient(
+        client: MockClient((_) async => http.Response(jsonEncode(body), status,
+            headers: {'content-type': 'application/json', 'x-correlation-id': '1234abcd-0000-0000-0000-000000000000'})),
+        onUnauthenticated: onUnauth,
+      );
+      api.token = 'hdr_test';
+      return api;
+    }
 
-    expect(find.text('Title rejected by server.'), findsOneWidget);
-    expect(idemKey, startsWith('web-'), reason: 'each submission carries an idempotency key');
-  });
+    test('422 exposes field errors', () async {
+      final api = clientReturning(422, {
+        'message': 'Invalid',
+        'errors': {'subject': ['Too short']},
+      });
+      final e = await api.post('/tickets').then<ApiException?>((_) => null, onError: (e) => e as ApiException);
+      expect(e!.kind, ApiErrorKind.validation);
+      expect(e.fieldError('subject'), 'Too short');
+    });
 
-  testWidgets('network failure shows an understandable message with retry', (tester) async {
-    final app = HelpDeskApp(session: Session(ApiClient(baseUrl: 'http://api.test', client: MockClient((_) async => throw http.ClientException('offline')))));
-    await tester.pumpWidget(app);
-    await tester.pumpAndSettle();
+    test('401 with a token ends the session', () async {
+      var expired = false;
+      final api = clientReturning(401, {'message': 'Unauthenticated.'}, onUnauth: () => expired = true);
+      await expectLater(api.get('/tickets'), throwsA(isA<ApiException>()));
+      expect(expired, isTrue);
+    });
 
-    expect(find.textContaining('Cannot reach the help desk service'), findsOneWidget);
-    expect(find.text('Try again'), findsOneWidget);
-  });
+    test('500 hides server detail and shows a reference', () async {
+      final api = clientReturning(500, {'message': 'SQLSTATE[HY000] secret detail'});
+      final e = await api.get('/tickets').then<ApiException?>((_) => null, onError: (e) => e as ApiException);
+      expect(e!.kind, ApiErrorKind.server);
+      expect(e.message, isNot(contains('SQLSTATE')));
+      expect(e.message, contains('1234abcd'));
+    });
 
-  testWidgets('server error hides internals and shows a reference id', (tester) async {
-    final app = HelpDeskApp(
-      session: Session(ApiClient(
-        baseUrl: 'http://api.test',
-        client: MockClient((_) async => _json({
-              'error': {'code': 'internal_error', 'message': 'Unexpected server error.', 'correlationId': 'abcdef12-3456'}
-            }, 500)),
-      )),
-    );
-    await tester.pumpWidget(app);
-    await tester.pumpAndSettle();
-
-    expect(find.textContaining('The service had a problem'), findsOneWidget);
-    expect(find.textContaining('ref abcdef12'), findsOneWidget);
+    test('authorization header is sent only when signed in', () async {
+      late http.BaseRequest seen;
+      final api = ApiClient(client: MockClient((r) async {
+        seen = r;
+        return http.Response('{}', 200);
+      }));
+      await api.get('/tickets');
+      expect(seen.headers.containsKey('Authorization'), isFalse);
+      api.token = 'hdr_x';
+      await api.get('/tickets');
+      expect(seen.headers['Authorization'], 'Bearer hdr_x');
+    });
   });
 }
