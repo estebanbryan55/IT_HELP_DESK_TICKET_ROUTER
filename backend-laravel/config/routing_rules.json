@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "categories": {
+    "network": {
+      "team": "network",
+      "keywords": ["wifi", "wi-fi", "internet", "network", "vpn", "lan", "ethernet", "router", "no connection", "disconnect"]
+    },
+    "account": {
+      "team": "accounts",
+      "keywords": ["password", "login", "log in", "sign in", "account", "locked", "mfa", "portal access", "username"]
+    },
+    "hardware": {
+      "team": "hardware",
+      "keywords": ["printer", "monitor", "keyboard", "mouse", "laptop", "projector", "hardware", "screen", "speaker"]
+    },
+    "software": {
+      "team": "software",
+      "keywords": ["install", "software", "application", "license", "update", "crash", "error message", "excel", "browser"]
+    }
+  },
+  "priorityRaise": {
+    "critical": ["outage", "server down", "all users", "whole building", "entire floor"],
+    "high": ["cannot work", "urgent", "exam", "deadline", "enrollment"]
+  }
+}
