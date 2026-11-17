@@ -1,0 +1,35 @@
+=== Week 15 failure injection: BASELINE (Week 14 code, before fixes)
+Date: 2026-11-17T14:07:05+08:00   PHP: 8.4.14
+
+--- F1 Database unavailable (instance :8016, DB_DATABASE=missing file)
+> GET /api/v1/health
+HTTP/1.0 404 Not Found
+body: {"message":"Resource not found."} 
+> POST /api/v1/auth/login
+HTTP/1.1 500 Internal Server Error
+X-Correlation-Id: b981cb7e-8d69-4809-9e71-52fe68696553
+body: { "message": "Database file at path [C:/Users/Celi/Documents/1aaaaa/week15/backend/storage/does-not-exist/missing.sqlite] does not exist. Ensure this is an absolute path to the database. (Connection: sqlite, Database: C:/Users/Celi/Documents/1aaaaa/week15/backend/storage/does-not-exist/missing.sqlite, SQL: select * from \"cache\" where \"key\" in (it-help-desk-ticket-router-cache-e5c5b6189ba5330066aad6dfb74d9840))", 
+
+--- F2 Recovery check on the healthy instance (:8015)
+> GET /api/v1/health
+HTTP/1.0 404 Not Found
+body: {"message":"Resource not found."} 
+> POST /api/v1/auth/login
+HTTP 200 (token body omitted from evidence)
+
+--- F3 Gateway dependency timeout (stub on :8017 answers after 35 s)
+   Illuminate\Http\Client\ConnectionException 
+  cURL error 28: Operation timed out after 30000 milliseconds with 0 bytes received (see https://curl.se/libcurl/c/libcurl-errors.html) for http://127.0.0.1:8017/api/v1/integrations/email-gateway/tickets
+  at vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:2136
+    2132▕      * @throws \Illuminate\Http\Client\ConnectionException
+    2133▕      */
+    2134▕     protected function marshalTransportException(TransferException $e)
+    2135▕     {
+  ➜ 2136▕         $exception = new ConnectionException($e->getMessage(), 0, $e);
+    2137▕ 
+    2138▕         $request = (new Request($e->getRequest()))->setRequestAttributes($this->attributes);
+    2139▕ 
+    2140▕         $this->factory?->recordRequestResponsePair(
+exit code: 1   elapsed: 31 s
+
+=== end

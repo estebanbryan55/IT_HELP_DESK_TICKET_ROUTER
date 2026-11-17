@@ -1,0 +1,27 @@
+Protected application log excerpt (storage/logs/laravel.log), Week 15 regression + failure-injection runs.
+Stack-trace lines removed for brevity; each entry carries the correlation id returned to the client.
+Check: no passwords, tokens, HMAC keys, or decrypted contact numbers appear below.
+
+[2026-11-17 06:12:54] local.INFO: auth.login_succeeded {"user_id":1} {"correlation_id":"6df03a7c-62d8-4a8e-ad43-fa43540b183f"}
+[2026-11-17 06:12:55] local.INFO: auth.login_succeeded {"user_id":2} {"correlation_id":"0385037e-4d1c-441f-b242-2094df22fab7"}
+[2026-11-17 06:12:56] local.INFO: auth.login_succeeded {"user_id":4} {"correlation_id":"6ecc97fe-b05a-4651-b42a-59d5b4736a7b"}
+[2026-11-17 06:12:57] local.INFO: auth.login_succeeded {"user_id":3} {"correlation_id":"5879d634-ebfc-4894-86fe-65c97d48b228"}
+[2026-11-17 06:12:57] local.INFO: auth.login_succeeded {"user_id":6} {"correlation_id":"0440381e-f112-4d96-94b1-b2b93c05765c"}
+[2026-11-17 06:12:58] local.NOTICE: auth.login_failed {"user_id":1} {"correlation_id":"b7c0e060-d01e-4438-abcd-f41df039109b"}
+[2026-11-17 06:13:00] local.INFO: ticket.created {"ticket":"HD-2026-000003","source":"web"} {"correlation_id":"6062572a-7fa2-4af9-99f9-3887e9cd83be"}
+[2026-11-17 06:13:04] local.INFO: ticket.created {"ticket":"HD-2026-000004","source":"web"} {"correlation_id":"6d8b5e07-fe02-4275-97c0-9352844e78b2"}
+[2026-11-17 06:13:06] local.INFO: ticket.created {"ticket":"HD-2026-000005","source":"web"} {"correlation_id":"191e2dea-d708-4d36-8e09-736680bf465c"}
+[2026-11-17 06:13:07] local.NOTICE: ticket.access_denied {"ticket_id":3} {"correlation_id":"e4f66ba3-60b7-46e0-bd1d-76bd0a2d2fe2"}
+[2026-11-17 06:13:07] local.NOTICE: ticket.access_denied {"ticket_id":3} {"correlation_id":"ff6ddd2a-2dc0-4c75-96d7-856de982d5b0"}
+[2026-11-17 06:13:09] local.NOTICE: ticket.access_denied {"ticket_id":3} {"correlation_id":"0e030ed6-0681-419d-9473-a5d114d70a98"}
+[2026-11-17 06:13:10] local.INFO: ticket.idempotent_replay {"ticket":"HD-2026-000003"} {"correlation_id":"4e5cff6d-e6ff-408d-adf7-c2778b0e1140"}
+[2026-11-17 06:13:15] local.WARNING: integration.rejected {"reason":"unknown_key","key_id":""} {"correlation_id":"24bcf6fd-358c-459e-a24f-42b661c35a5c"}
+[2026-11-17 06:13:16] local.NOTICE: auth.login_failed {"user_id":null} {"correlation_id":"f4dccfd0-fead-46a8-be78-4aabe6e8962e"}
+[2026-11-17 06:13:17] local.NOTICE: auth.login_failed {"user_id":null} {"correlation_id":"a3eb0135-fe64-448f-b2ad-ad1aeff8f407"}
+[2026-11-17 06:13:18] local.NOTICE: auth.login_failed {"user_id":null} {"correlation_id":"b829b4c1-1f9f-42aa-b429-22157e16ab06"}
+[2026-11-17 06:13:19] local.NOTICE: auth.login_failed {"user_id":null} {"correlation_id":"3b4acd07-2310-40fe-9cc6-e04ec48c903f"}
+[2026-11-17 06:13:19] local.NOTICE: auth.login_failed {"user_id":null} {"correlation_id":"a0567ac1-c5c5-4985-9c55-1f353fafd565"}
+[2026-11-17 06:13:20] local.INFO: auth.logout {"user_id":1} {"correlation_id":"08720a20-6a45-4ba1-a3b1-3fdecbd890fa"}
+[2026-11-17 06:13:26] local.ERROR: health.database_unavailable {"exception":"Illuminate\\Database\\QueryException"} {"correlation_id":"aab8dc5d-1c7e-4d0d-9acc-646725d7b609"}
+[2026-11-17 06:13:27] local.ERROR: Database file at path [C:/Users/Celi/Documents/1aaaaa/week15/backend/storage/does-not-exist/missing.sqlite] does not exist. Ensure this is an absolute path to the database. (Connection: sqlite, Database: C:/Users/Celi/Documents/1aaaaa/week15/backend/storage/does-not-exist/missing.sqlite, SQL: s
+[2026-11-17 06:13:31] local.INFO: auth.login_succeeded {"user_id":2} {"correlation_id":"8960823e-31eb-4639-8200-736f3efd7405"}

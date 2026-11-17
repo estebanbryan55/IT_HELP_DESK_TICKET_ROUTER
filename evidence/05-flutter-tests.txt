@@ -1,7 +1,0 @@
-00:00 +0: loading C:/Users/Celi/Documents/2bry/week14/frontend/test/widget_test.dart
-00:00 +0: login form validates before calling the API
-00:02 +1: ApiClient error mapping 422 exposes field errors
-00:02 +2: ApiClient error mapping 401 with a token ends the session
-00:02 +3: ApiClient error mapping 500 hides server detail and shows a reference
-00:02 +4: ApiClient error mapping authorization header is sent only when signed in
-00:02 +5: All tests passed!

@@ -54,9 +54,10 @@ class TicketAuthorizationTest extends TestCase
         $ticket = Ticket::factory()->create();
         Sanctum::actingAs(User::factory()->create());
 
+        // Week 15 DEF-01: changed from 403 to 404 so ticket ids cannot be probed.
         $this->getJson("/api/v1/tickets/{$ticket->id}")
-            ->assertStatus(403)
-            ->assertExactJson(['message' => 'You are not permitted to perform this action.']);
+            ->assertStatus(404)
+            ->assertExactJson(['message' => 'Resource not found.']);
     }
 
     public function test_ticket_list_is_scoped_to_the_caller(): void
@@ -84,8 +85,9 @@ class TicketAuthorizationTest extends TestCase
         $ticket = Ticket::factory()->assignedTo(User::factory()->agent()->create())->create();
         Sanctum::actingAs(User::factory()->agent()->create());
 
-        $this->getJson("/api/v1/tickets/{$ticket->id}")->assertStatus(403);
-        $this->postJson("/api/v1/tickets/{$ticket->id}/transition", ['status' => 'in_progress'])->assertStatus(403);
+        // Week 15 DEF-01: invisible tickets answer 404 on read and write routes.
+        $this->getJson("/api/v1/tickets/{$ticket->id}")->assertStatus(404);
+        $this->postJson("/api/v1/tickets/{$ticket->id}/transition", ['status' => 'in_progress'])->assertStatus(404);
     }
 
     public function test_full_workflow_assign_resolve_confirm_close(): void

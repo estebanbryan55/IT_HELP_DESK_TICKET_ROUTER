@@ -1,0 +1,69 @@
+FAIL  404   588ms  TC-HLT-01 Health check reports database ok
+        - status is 200: expected status 200, got 404
+        - database check ok: Cannot read properties of undefined (reading 'database')
+PASS  200  1047ms  TC-AUTH-01 Login as student (requester)
+PASS  200   894ms  TC-AUTH-02 Login as employee (requester)
+PASS  200   914ms  TC-AUTH-03a Login as network agent
+PASS  200   891ms  TC-AUTH-03b Login as hardware agent
+PASS  200   888ms  TC-AUTH-03c Login as supervisor
+PASS  401   891ms  TC-AUTH-04 Wrong password gives generic 401
+PASS  422   499ms  TC-AUTH-05 Malformed email rejected
+PASS  401   404ms  TC-AUTH-06 No token gives 401
+PASS  401   402ms  TC-AUTH-07 Forged token gives 401
+PASS  201   664ms  TC-FUN-01 Requester submits ticket (routed to network agent)
+PASS  200   531ms  TC-FUN-02 Requester list contains the new ticket
+PASS  200   591ms  TC-FUN-03 Agent starts work
+PASS  422   568ms  TC-FUN-04 Resolve without note is rejected
+PASS  200   557ms  TC-FUN-05 Agent resolves with note
+PASS  200   540ms  TC-FUN-06 Requester confirms fix and ticket closes
+PASS  422   523ms  TC-VAL-01 Invalid category, short subject, bad phone
+PASS  422   531ms  TC-VAL-02 Subject of 121 characters rejected (upper bound + 1)
+PASS  201   603ms  TC-VAL-03 Subject of exactly 120 characters accepted (upper bound)
+PASS  422   640ms  TC-VAL-04 Malformed JSON body gives 422, not 500
+PASS  201   628ms  TC-VAL-05 Client-supplied status/requester ignored (mass assignment)
+FAIL  200   518ms  TC-VAL-06 Unknown status filter rejected
+        - status is 422: expected status 422, got 200
+        - status field error: Cannot read properties of undefined (reading 'status')
+FAIL  403   469ms  TC-AZ-01 Requester cannot read another requester's ticket (no existence leak)
+        - status is 404: expected status 404, got 403
+        - same body as unknown id: expected "You are not permitted to perform this action." to eql "Resource not found."
+FAIL  403   484ms  TC-AZ-02 Agent cannot read a ticket assigned to another agent
+        - status is 404: expected status 404, got 403
+PASS  403   503ms  TC-AZ-03 Requester cannot change status of own ticket
+PASS  403   464ms  TC-AZ-04 Requester cannot list agents
+PASS  404   477ms  TC-AZ-05 Unknown ticket id
+FAIL  403   510ms  TC-AZ-06 Requester cannot confirm another requester's ticket
+        - status is 404: expected status 404, got 403
+PASS  200   518ms  TC-AZ-07 Supervisor can read any ticket
+FAIL  201   656ms  TC-DUP-01 Same Idempotency-Key replays the original ticket
+        - status is 200: expected status 200, got 201
+        - same ticket returned: expected "6" to eql "3"
+        - replay flagged: expected undefined to eql "true"
+FAIL  201   578ms  TC-DUP-02 Same key with a different payload is refused
+        - status is 409: expected status 409, got 201
+PASS  409   530ms  TC-STA-01 Closed ticket cannot be reopened by transition
+FAIL  403   527ms  TC-STA-02 Confirming an unresolved ticket is a conflict, not a permission error
+        - status is 409: expected status 409, got 403
+FAIL  403   550ms  TC-STA-03 Reassigning a closed ticket is a conflict
+        - status is 409: expected status 409, got 403
+FAIL  405   392ms  TC-CON-01 Wrong HTTP method gives generic 405
+        - no route details leaked: expected value not to include "Supported methods"
+FAIL  404   386ms  TC-CON-02 Client correlation id is echoed
+        - status is 200: expected status 200, got 404
+        - echoed: expected undefined to eql "week15-trace-0001"
+PASS  200   496ms  TC-CON-03 Security headers present
+PASS  204   357ms  TC-CON-04 CORS preflight from the Flutter origin allowed
+PASS  204   346ms  TC-CON-05 CORS preflight from an unknown origin not allowed
+FAIL  204   360ms  TC-CON-07 CORS preflight allows the Idempotency-Key header
+        - header allowed: expected value to include "idempotency-key"
+PASS  401   664ms  TC-CON-06 Unsigned gateway message rejected
+PASS  401  1286ms  TC-RL-01 Failed login 1/5
+PASS  401   909ms  TC-RL-02 Failed login 2/5
+PASS  401   862ms  TC-RL-03 Failed login 3/5
+PASS  401   889ms  TC-RL-04 Failed login 4/5
+PASS  401   935ms  TC-RL-05 Failed login 5/5
+PASS  429   661ms  TC-RL-06 Sixth failed login in a minute is throttled
+PASS  200   666ms  TC-AUTH-08 Logout revokes the token
+PASS  401   552ms  TC-AUTH-09 Revoked token no longer works
+
+BASELINE (Week 14 code, before fixes): 37/49 requests passed, 12 failed  (2026-11-17T06:03:53.505Z)

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
     'reference', 'requester_id', 'assigned_agent_id', 'category', 'priority', 'status', 'source',
+    'idempotency_key', 'request_hash',
     'subject', 'description', 'asset_tag', 'contact_number', 'access_note', 'resolution_note',
     'sla_due_at', 'resolved_at', 'closed_at',
 ])]

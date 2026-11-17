@@ -24,7 +24,15 @@ class StoreTicketRequest extends FormRequest
             'asset_tag' => ['nullable', 'string', 'regex:/^[A-Z0-9\-]{3,30}$/'],
             'contact_number' => ['nullable', 'string', 'regex:/^\+?[0-9 \-]{7,20}$/'],
             'access_note' => ['nullable', 'string', 'max:300'],
+            // Week 15 DEF-02: optional Idempotency-Key header, validated like any other input.
+            'idempotency_key' => ['nullable', 'string', 'regex:/^[A-Za-z0-9_\-]{8,64}$/'],
         ];
+    }
+
+    /** The key travels as a header; copy it in so it is validated with the body. */
+    protected function prepareForValidation(): void
+    {
+        $this->merge(['idempotency_key' => $this->header('Idempotency-Key')]);
     }
 
     public function messages(): array
@@ -32,6 +40,7 @@ class StoreTicketRequest extends FormRequest
         return [
             'asset_tag.regex' => 'Asset tag may contain only uppercase letters, digits, and hyphens.',
             'contact_number.regex' => 'Contact number must contain 7-20 digits, spaces, or hyphens.',
+            'idempotency_key.regex' => 'Idempotency-Key must be 8-64 letters, digits, hyphens, or underscores.',
         ];
     }
 }

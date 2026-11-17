@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Enums\Role;
-use App\Enums\TicketStatus;
 use App\Models\Ticket;
 use App\Models\User;
 
@@ -33,14 +32,16 @@ class TicketPolicy
             || ($user->isRole(Role::Agent) && $ticket->assigned_agent_id === $user->id);
     }
 
+    // Week 15: policies decide WHO may act; whether the ticket's current state
+    // allows the action is checked in the controller and answered with 409.
     public function assign(User $user, Ticket $ticket): bool
     {
-        return $user->isRole(Role::Supervisor) && $ticket->status !== TicketStatus::Closed;
+        return $user->isRole(Role::Supervisor);
     }
 
     public function confirm(User $user, Ticket $ticket): bool
     {
-        return $ticket->requester_id === $user->id && $ticket->status === TicketStatus::Resolved;
+        return $ticket->requester_id === $user->id;
     }
 
     /** Who may see decrypted contact details and access notes. */

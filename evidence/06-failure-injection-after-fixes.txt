@@ -1,0 +1,28 @@
+=== Week 15 failure injection: AFTER FIXES (Week 15 code)
+Date: 2026-11-17T14:13:25+08:00   PHP: 8.4.14
+
+--- F1 Database unavailable (instance :8016, DB_DATABASE=missing file)
+> GET /api/v1/health
+HTTP/1.1 503 Service Unavailable
+Retry-After: 30
+X-Correlation-Id: aab8dc5d-1c7e-4d0d-9acc-646725d7b609
+body: {"status":"degraded","checks":{"database":"unavailable"},"duration_ms":37} 
+> POST /api/v1/auth/login
+HTTP/1.1 503 Service Unavailable
+Retry-After: 30
+X-Correlation-Id: f9082f6e-64c8-4364-9f4a-c1700139332d
+body: {"message":"The help desk service is temporarily unavailable. Please try again shortly.","correlation_id":"f9082f6e-64c8-4364-9f4a-c1700139332d"} 
+
+--- F2 Recovery check on the healthy instance (:8015)
+> GET /api/v1/health
+HTTP/1.1 200 OK
+X-Correlation-Id: e8f7f46b-8cb8-487c-81f7-7723cf73d07e
+body: {"status":"ok","checks":{"database":"ok"},"duration_ms":16} 
+> POST /api/v1/auth/login
+HTTP 200 (token body omitted from evidence)
+
+--- F3 Gateway dependency timeout (stub on :8017 answers after 35 s)
+Help desk API unreachable after 3 attempts (timeout). Message kept for manual retry.
+exit code: 1   elapsed: 11 s
+
+=== end

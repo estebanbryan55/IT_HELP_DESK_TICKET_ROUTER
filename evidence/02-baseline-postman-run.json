@@ -1,0 +1,984 @@
+{
+  "label": "BASELINE (Week 14 code, before fixes)",
+  "started": "2026-11-17T06:03:53.505Z",
+  "baseUrl": "http://127.0.0.1:8015/api/v1",
+  "passed": 37,
+  "total": 49,
+  "results": [
+    {
+      "folder": "1 Health",
+      "name": "TC-HLT-01 Health check reports database ok",
+      "method": "GET",
+      "url": "/health",
+      "status": 404,
+      "ms": 588,
+      "correlationId": null,
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": false,
+          "error": "expected status 200, got 404"
+        },
+        {
+          "name": "database check ok",
+          "pass": false,
+          "error": "Cannot read properties of undefined (reading 'database')"
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Resource not found.\"}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-01 Login as student (requester)",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 200,
+      "ms": 1047,
+      "correlationId": "baeff903-34a8-4512-84d3-cddb247070bd",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "bearer token issued with expiry",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"token\":\"[REDACTED]\",\"token_type\":\"Bearer\",\"expires_at\":\"2026-11-17T07:03:55+00:00\",\"user\":{\"id\":1,\"name\":\"Sam Student\",\"role\":\"requester\"}}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-02 Login as employee (requester)",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 200,
+      "ms": 894,
+      "correlationId": "cce9ee4c-10d8-44df-a74e-c8ffe0477021",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "bearer token issued with expiry",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"token\":\"[REDACTED]\",\"token_type\":\"Bearer\",\"expires_at\":\"2026-11-17T07:03:55+00:00\",\"user\":{\"id\":2,\"name\":\"Erin Employee\",\"role\":\"requester\"}}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-03a Login as network agent",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 200,
+      "ms": 914,
+      "correlationId": "4570736d-2706-4147-955c-102627f0ff64",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "bearer token issued with expiry",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"token\":\"[REDACTED]\",\"token_type\":\"Bearer\",\"expires_at\":\"2026-11-17T07:03:56+00:00\",\"user\":{\"id\":4,\"name\":\"Nico Network\",\"role\":\"agent\"}}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-03b Login as hardware agent",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 200,
+      "ms": 891,
+      "correlationId": "644562a1-84fb-4b6a-ac3f-1b5f3749b225",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "bearer token issued with expiry",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"token\":\"[REDACTED]\",\"token_type\":\"Bearer\",\"expires_at\":\"2026-11-17T07:03:57+00:00\",\"user\":{\"id\":3,\"name\":\"Hana Hardware\",\"role\":\"agent\"}}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-03c Login as supervisor",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 200,
+      "ms": 888,
+      "correlationId": "f2d71a5e-f2f7-40c8-9228-69a962ecc170",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "bearer token issued with expiry",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"token\":\"[REDACTED]\",\"token_type\":\"Bearer\",\"expires_at\":\"2026-11-17T07:03:58+00:00\",\"user\":{\"id\":6,\"name\":\"Sol Supervisor\",\"role\":\"supervisor\"}}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-04 Wrong password gives generic 401",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 401,
+      "ms": 891,
+      "correlationId": "20376a46-f186-4427-bc26-0cd50c2a2909",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        },
+        {
+          "name": "generic message",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Invalid credentials.\"}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-05 Malformed email rejected",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 422,
+      "ms": 499,
+      "correlationId": "7205700e-ba98-4435-9d34-228c4700d72a",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 422",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"The email field must be a valid email address.\",\"errors\":{\"email\":[\"The email field must be a valid email address.\"]}}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-06 No token gives 401",
+      "method": "GET",
+      "url": "/tickets",
+      "status": 401,
+      "ms": 404,
+      "correlationId": "f749392a-afca-4221-a6c7-70cd4e7761d6",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Unauthenticated.\"}"
+    },
+    {
+      "folder": "2 Authentication",
+      "name": "TC-AUTH-07 Forged token gives 401",
+      "method": "GET",
+      "url": "/tickets",
+      "status": 401,
+      "ms": 402,
+      "correlationId": "8bc1adcf-d7fa-4a63-a90d-92219e993100",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Unauthenticated.\"}"
+    },
+    {
+      "folder": "3 Functional workflow",
+      "name": "TC-FUN-01 Requester submits ticket (routed to network agent)",
+      "method": "POST",
+      "url": "/tickets",
+      "status": 201,
+      "ms": 664,
+      "correlationId": "1af62f6a-d4e4-4dec-8f07-dc5700c989bd",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 201",
+          "pass": true
+        },
+        {
+          "name": "auto-assigned",
+          "pass": true
+        },
+        {
+          "name": "routed to network specialist",
+          "pass": true
+        },
+        {
+          "name": "protected field visible to owner",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":3,\"reference\":\"HD-2026-000003\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"assigned\",\"source\":\"web\",\"subject\":\"Week 15 test: Wi-Fi drops in Lab 3\",\"description\":\"Controlled test ticket created by the Week 15 Postman collection.\",\"asset_tag\":null,\"contact_number\":\"0917 555 0199\",\"a"
+    },
+    {
+      "folder": "3 Functional workflow",
+      "name": "TC-FUN-02 Requester list contains the new ticket",
+      "method": "GET",
+      "url": "/tickets",
+      "status": 200,
+      "ms": 531,
+      "correlationId": "6f753ad3-69d8-46fe-9da2-7af12b046514",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "ticket listed",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":[{\"id\":3,\"reference\":\"HD-2026-000003\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"assigned\",\"source\":\"web\",\"subject\":\"Week 15 test: Wi-Fi drops in Lab 3\",\"asset_tag\":null,\"resolution_note\":null,\"requester\":{\"id\":1,\"name\":\"Sam Student\"},\"agent\":{\"id\":4,\"name\":\"Nico Network\"},\"sla_due_at\""
+    },
+    {
+      "folder": "3 Functional workflow",
+      "name": "TC-FUN-03 Agent starts work",
+      "method": "POST",
+      "url": "/tickets/3/transition",
+      "status": 200,
+      "ms": 591,
+      "correlationId": "6bf275cd-e524-4b57-a2c7-b8c8a57e3f92",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "in progress",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":3,\"reference\":\"HD-2026-000003\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"in_progress\",\"source\":\"web\",\"subject\":\"Week 15 test: Wi-Fi drops in Lab 3\",\"description\":\"Controlled test ticket created by the Week 15 Postman collection.\",\"asset_tag\":null,\"contact_number\":\"0917 555 0199\""
+    },
+    {
+      "folder": "3 Functional workflow",
+      "name": "TC-FUN-04 Resolve without note is rejected",
+      "method": "POST",
+      "url": "/tickets/3/transition",
+      "status": 422,
+      "ms": 568,
+      "correlationId": "6c8f0abe-1d5a-49f8-a676-1a1b42305a21",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 422",
+          "pass": true
+        },
+        {
+          "name": "note error",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"The note field is required when status is resolved.\",\"errors\":{\"note\":[\"The note field is required when status is resolved.\"]}}"
+    },
+    {
+      "folder": "3 Functional workflow",
+      "name": "TC-FUN-05 Agent resolves with note",
+      "method": "POST",
+      "url": "/tickets/3/transition",
+      "status": 200,
+      "ms": 557,
+      "correlationId": "9d84cb90-c377-447a-895b-02d68e590ece",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "resolved",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":3,\"reference\":\"HD-2026-000003\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"resolved\",\"source\":\"web\",\"subject\":\"Week 15 test: Wi-Fi drops in Lab 3\",\"description\":\"Controlled test ticket created by the Week 15 Postman collection.\",\"asset_tag\":null,\"contact_number\":\"0917 555 0199\",\"a"
+    },
+    {
+      "folder": "3 Functional workflow",
+      "name": "TC-FUN-06 Requester confirms fix and ticket closes",
+      "method": "POST",
+      "url": "/tickets/3/confirm",
+      "status": 200,
+      "ms": 540,
+      "correlationId": "1f83cc95-d64c-4b21-9ccb-abccf6e547fa",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "closed",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":3,\"reference\":\"HD-2026-000003\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"closed\",\"source\":\"web\",\"subject\":\"Week 15 test: Wi-Fi drops in Lab 3\",\"description\":\"Controlled test ticket created by the Week 15 Postman collection.\",\"asset_tag\":null,\"contact_number\":\"0917 555 0199\",\"acc"
+    },
+    {
+      "folder": "4 Invalid input and boundaries",
+      "name": "TC-VAL-01 Invalid category, short subject, bad phone",
+      "method": "POST",
+      "url": "/tickets",
+      "status": 422,
+      "ms": 523,
+      "correlationId": "3e35737f-4d9f-4630-a52f-301f85e05b67",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 422",
+          "pass": true
+        },
+        {
+          "name": "field errors returned",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"The selected category is invalid. (and 3 more errors)\",\"errors\":{\"category\":[\"The selected category is invalid.\"],\"subject\":[\"The subject field must be at least 5 characters.\"],\"description\":[\"The description field must be at least 10 characters.\"],\"contact_number\":[\"Contact number must "
+    },
+    {
+      "folder": "4 Invalid input and boundaries",
+      "name": "TC-VAL-02 Subject of 121 characters rejected (upper bound + 1)",
+      "method": "POST",
+      "url": "/tickets",
+      "status": 422,
+      "ms": 531,
+      "correlationId": "9fa86cc5-01c3-42f5-ad34-54fa150b5973",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 422",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"The subject field must not be greater than 120 characters.\",\"errors\":{\"subject\":[\"The subject field must not be greater than 120 characters.\"]}}"
+    },
+    {
+      "folder": "4 Invalid input and boundaries",
+      "name": "TC-VAL-03 Subject of exactly 120 characters accepted (upper bound)",
+      "method": "POST",
+      "url": "/tickets",
+      "status": 201,
+      "ms": 603,
+      "correlationId": "1814f49c-0116-48aa-9f00-45831d240e98",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 201",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":4,\"reference\":\"HD-2026-000004\",\"category\":\"hardware\",\"priority\":\"high\",\"status\":\"assigned\",\"source\":\"web\",\"subject\":\"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\",\"description\":\"Controlled test ticket created b"
+    },
+    {
+      "folder": "4 Invalid input and boundaries",
+      "name": "TC-VAL-04 Malformed JSON body gives 422, not 500",
+      "method": "POST",
+      "url": "/tickets",
+      "status": 422,
+      "ms": 640,
+      "correlationId": "961b873c-e329-4779-89fe-97e4dd43fd74",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 422",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"The category field is required. (and 2 more errors)\",\"errors\":{\"category\":[\"The category field is required.\"],\"subject\":[\"The subject field is required.\"],\"description\":[\"The description field is required.\"]}}"
+    },
+    {
+      "folder": "4 Invalid input and boundaries",
+      "name": "TC-VAL-05 Client-supplied status/requester ignored (mass assignment)",
+      "method": "POST",
+      "url": "/tickets",
+      "status": 201,
+      "ms": 628,
+      "correlationId": "f8973ded-329b-4c94-b99e-6172b2bb4873",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 201",
+          "pass": true
+        },
+        {
+          "name": "status set by server",
+          "pass": true
+        },
+        {
+          "name": "requester is the caller",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":5,\"reference\":\"HD-2026-000005\",\"category\":\"account\",\"priority\":\"high\",\"status\":\"assigned\",\"source\":\"web\",\"subject\":\"Week 15 test: Wi-Fi drops in Lab 3\",\"description\":\"Controlled test ticket created by the Week 15 Postman collection.\",\"asset_tag\":null,\"contact_number\":\"0917 555 0199\",\"a"
+    },
+    {
+      "folder": "4 Invalid input and boundaries",
+      "name": "TC-VAL-06 Unknown status filter rejected",
+      "method": "GET",
+      "url": "/tickets?status=bogus",
+      "status": 200,
+      "ms": 518,
+      "correlationId": "841ebcca-3d7d-4ece-ac2e-673637d6fb30",
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 422",
+          "pass": false,
+          "error": "expected status 422, got 200"
+        },
+        {
+          "name": "status field error",
+          "pass": false,
+          "error": "Cannot read properties of undefined (reading 'status')"
+        }
+      ],
+      "responseExcerpt": "{\"data\":[],\"links\":{\"first\":\"http:\\/\\/127.0.0.1:8015\\/api\\/v1\\/tickets?page=1\",\"last\":\"http:\\/\\/127.0.0.1:8015\\/api\\/v1\\/tickets?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":null,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"htt"
+    },
+    {
+      "folder": "5 Authorization",
+      "name": "TC-AZ-01 Requester cannot read another requester's ticket (no existence leak)",
+      "method": "GET",
+      "url": "/tickets/3",
+      "status": 403,
+      "ms": 469,
+      "correlationId": "e66c0b57-382a-4b5e-945b-0d75f2e46e3c",
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 404",
+          "pass": false,
+          "error": "expected status 404, got 403"
+        },
+        {
+          "name": "same body as unknown id",
+          "pass": false,
+          "error": "expected \"You are not permitted to perform this action.\" to eql \"Resource not found.\""
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"You are not permitted to perform this action.\"}"
+    },
+    {
+      "folder": "5 Authorization",
+      "name": "TC-AZ-02 Agent cannot read a ticket assigned to another agent",
+      "method": "GET",
+      "url": "/tickets/3",
+      "status": 403,
+      "ms": 484,
+      "correlationId": "79958aad-4d04-4268-b166-6e2742a4d310",
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 404",
+          "pass": false,
+          "error": "expected status 404, got 403"
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"You are not permitted to perform this action.\"}"
+    },
+    {
+      "folder": "5 Authorization",
+      "name": "TC-AZ-03 Requester cannot change status of own ticket",
+      "method": "POST",
+      "url": "/tickets/4/transition",
+      "status": 403,
+      "ms": 503,
+      "correlationId": "186db59e-0f59-481f-aa7b-f9df349a79b6",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 403",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"You are not permitted to perform this action.\"}"
+    },
+    {
+      "folder": "5 Authorization",
+      "name": "TC-AZ-04 Requester cannot list agents",
+      "method": "GET",
+      "url": "/agents",
+      "status": 403,
+      "ms": 464,
+      "correlationId": "fcec068d-2837-49a8-8dbe-6f052224f2d5",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 403",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\n    \"message\": \"\",\n    \"exception\": \"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\HttpException\",\n    \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Application.php\",\n    \"line\": 1448,\n    \"trace\": [\n        {\n            \"file\""
+    },
+    {
+      "folder": "5 Authorization",
+      "name": "TC-AZ-05 Unknown ticket id",
+      "method": "GET",
+      "url": "/tickets/999999",
+      "status": 404,
+      "ms": 477,
+      "correlationId": "ade3d87a-aa5b-4c22-a8be-24660d377f9d",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 404",
+          "pass": true
+        },
+        {
+          "name": "generic message",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Resource not found.\"}"
+    },
+    {
+      "folder": "5 Authorization",
+      "name": "TC-AZ-06 Requester cannot confirm another requester's ticket",
+      "method": "POST",
+      "url": "/tickets/3/confirm",
+      "status": 403,
+      "ms": 510,
+      "correlationId": "9998b165-563b-45bd-8637-39b0235133b0",
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 404",
+          "pass": false,
+          "error": "expected status 404, got 403"
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"You are not permitted to perform this action.\"}"
+    },
+    {
+      "folder": "5 Authorization",
+      "name": "TC-AZ-07 Supervisor can read any ticket",
+      "method": "GET",
+      "url": "/tickets/3",
+      "status": 200,
+      "ms": 518,
+      "correlationId": "3c6530f9-0275-4858-9107-c622a609f961",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":3,\"reference\":\"HD-2026-000003\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"closed\",\"source\":\"web\",\"subject\":\"Week 15 test: Wi-Fi drops in Lab 3\",\"description\":\"Controlled test ticket created by the Week 15 Postman collection.\",\"asset_tag\":null,\"contact_number\":\"0917 555 0199\",\"acc"
+    },
+    {
+      "folder": "6 Duplicate and state conflicts",
+      "name": "TC-DUP-01 Same Idempotency-Key replays the original ticket",
+      "method": "POST",
+      "url": "/tickets",
+      "status": 201,
+      "ms": 656,
+      "correlationId": "1144c8d4-fd13-482a-87b7-56b3296b8f6a",
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": false,
+          "error": "expected status 200, got 201"
+        },
+        {
+          "name": "same ticket returned",
+          "pass": false,
+          "error": "expected \"6\" to eql \"3\""
+        },
+        {
+          "name": "replay flagged",
+          "pass": false,
+          "error": "expected undefined to eql \"true\""
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":6,\"reference\":\"HD-2026-000006\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"assigned\",\"source\":\"web\",\"subject\":\"Week 15 test: Wi-Fi drops in Lab 3\",\"description\":\"Controlled test ticket created by the Week 15 Postman collection.\",\"asset_tag\":null,\"contact_number\":\"0917 555 0199\",\"a"
+    },
+    {
+      "folder": "6 Duplicate and state conflicts",
+      "name": "TC-DUP-02 Same key with a different payload is refused",
+      "method": "POST",
+      "url": "/tickets",
+      "status": 201,
+      "ms": 578,
+      "correlationId": "827cfb05-e1b3-4975-89cc-6f6da7ad70ad",
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 409",
+          "pass": false,
+          "error": "expected status 409, got 201"
+        }
+      ],
+      "responseExcerpt": "{\"data\":{\"id\":7,\"reference\":\"HD-2026-000007\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"assigned\",\"source\":\"web\",\"subject\":\"A different subject entirely\",\"description\":\"Controlled test ticket created by the Week 15 Postman collection.\",\"asset_tag\":null,\"contact_number\":\"0917 555 0199\",\"access_"
+    },
+    {
+      "folder": "6 Duplicate and state conflicts",
+      "name": "TC-STA-01 Closed ticket cannot be reopened by transition",
+      "method": "POST",
+      "url": "/tickets/3/transition",
+      "status": 409,
+      "ms": 530,
+      "correlationId": "84581eac-e12c-476e-b1e8-ff1c13d90c7f",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 409",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"A closed ticket cannot move to in_progress.\"}"
+    },
+    {
+      "folder": "6 Duplicate and state conflicts",
+      "name": "TC-STA-02 Confirming an unresolved ticket is a conflict, not a permission error",
+      "method": "POST",
+      "url": "/tickets/4/confirm",
+      "status": 403,
+      "ms": 527,
+      "correlationId": "02078432-5543-45ba-9e15-ddd5239e3829",
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 409",
+          "pass": false,
+          "error": "expected status 409, got 403"
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"You are not permitted to perform this action.\"}"
+    },
+    {
+      "folder": "6 Duplicate and state conflicts",
+      "name": "TC-STA-03 Reassigning a closed ticket is a conflict",
+      "method": "POST",
+      "url": "/tickets/3/assign",
+      "status": 403,
+      "ms": 550,
+      "correlationId": "50b0bc27-8975-4bc0-a9d6-4bdf12a56b02",
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 409",
+          "pass": false,
+          "error": "expected status 409, got 403"
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"You are not permitted to perform this action.\"}"
+    },
+    {
+      "folder": "7 Contract and interoperability",
+      "name": "TC-CON-01 Wrong HTTP method gives generic 405",
+      "method": "GET",
+      "url": "/auth/login",
+      "status": 405,
+      "ms": 392,
+      "correlationId": null,
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 405",
+          "pass": true
+        },
+        {
+          "name": "no route details leaked",
+          "pass": false,
+          "error": "expected value not to include \"Supported methods\""
+        }
+      ],
+      "responseExcerpt": "{\n    \"message\": \"The GET method is not supported for route api/v1/auth/login. Supported methods: POST.\",\n    \"exception\": \"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\MethodNotAllowedHttpException\",\n    \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Il"
+    },
+    {
+      "folder": "7 Contract and interoperability",
+      "name": "TC-CON-02 Client correlation id is echoed",
+      "method": "GET",
+      "url": "/health",
+      "status": 404,
+      "ms": 386,
+      "correlationId": null,
+      "pass": false,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": false,
+          "error": "expected status 200, got 404"
+        },
+        {
+          "name": "echoed",
+          "pass": false,
+          "error": "expected undefined to eql \"week15-trace-0001\""
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Resource not found.\"}"
+    },
+    {
+      "folder": "7 Contract and interoperability",
+      "name": "TC-CON-03 Security headers present",
+      "method": "GET",
+      "url": "/tickets",
+      "status": 200,
+      "ms": 496,
+      "correlationId": "c02fe284-17e0-4f8e-8e19-04f5363ac603",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        },
+        {
+          "name": "nosniff",
+          "pass": true
+        },
+        {
+          "name": "CSP",
+          "pass": true
+        },
+        {
+          "name": "no-store",
+          "pass": true
+        },
+        {
+          "name": "json",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"data\":[{\"id\":7,\"reference\":\"HD-2026-000007\",\"category\":\"network\",\"priority\":\"high\",\"status\":\"assigned\",\"source\":\"web\",\"subject\":\"A different subject entirely\",\"asset_tag\":null,\"resolution_note\":null,\"requester\":{\"id\":1,\"name\":\"Sam Student\"},\"agent\":{\"id\":4,\"name\":\"Nico Network\"},\"sla_due_at\":\"2026"
+    },
+    {
+      "folder": "7 Contract and interoperability",
+      "name": "TC-CON-04 CORS preflight from the Flutter origin allowed",
+      "method": "OPTIONS",
+      "url": "/tickets",
+      "status": 204,
+      "ms": 357,
+      "correlationId": null,
+      "pass": true,
+      "tests": [
+        {
+          "name": "2xx",
+          "pass": true
+        },
+        {
+          "name": "origin allowed",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": ""
+    },
+    {
+      "folder": "7 Contract and interoperability",
+      "name": "TC-CON-05 CORS preflight from an unknown origin not allowed",
+      "method": "OPTIONS",
+      "url": "/tickets",
+      "status": 204,
+      "ms": 346,
+      "correlationId": null,
+      "pass": true,
+      "tests": [
+        {
+          "name": "origin not allowed",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": ""
+    },
+    {
+      "folder": "7 Contract and interoperability",
+      "name": "TC-CON-07 CORS preflight allows the Idempotency-Key header",
+      "method": "OPTIONS",
+      "url": "/tickets",
+      "status": 204,
+      "ms": 360,
+      "correlationId": null,
+      "pass": false,
+      "tests": [
+        {
+          "name": "header allowed",
+          "pass": false,
+          "error": "expected value to include \"idempotency-key\""
+        }
+      ],
+      "responseExcerpt": ""
+    },
+    {
+      "folder": "7 Contract and interoperability",
+      "name": "TC-CON-06 Unsigned gateway message rejected",
+      "method": "POST",
+      "url": "/integrations/email-gateway/tickets",
+      "status": 401,
+      "ms": 664,
+      "correlationId": "41258ab0-8eb7-48e3-be35-017200de025f",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Message authentication failed.\"}"
+    },
+    {
+      "folder": "8 Rate limiting",
+      "name": "TC-RL-01 Failed login 1/5",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 401,
+      "ms": 1286,
+      "correlationId": "51ee9fb1-01d1-4c10-98a2-896078b86ec3",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Invalid credentials.\"}"
+    },
+    {
+      "folder": "8 Rate limiting",
+      "name": "TC-RL-02 Failed login 2/5",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 401,
+      "ms": 909,
+      "correlationId": "8671571e-fd46-4043-84a1-f78c357dffb7",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Invalid credentials.\"}"
+    },
+    {
+      "folder": "8 Rate limiting",
+      "name": "TC-RL-03 Failed login 3/5",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 401,
+      "ms": 862,
+      "correlationId": "80240037-7e65-4a15-a78d-a04d4bb4cfbe",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Invalid credentials.\"}"
+    },
+    {
+      "folder": "8 Rate limiting",
+      "name": "TC-RL-04 Failed login 4/5",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 401,
+      "ms": 889,
+      "correlationId": "faa9c37b-8792-4a46-862f-7cbc794e426d",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Invalid credentials.\"}"
+    },
+    {
+      "folder": "8 Rate limiting",
+      "name": "TC-RL-05 Failed login 5/5",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 401,
+      "ms": 935,
+      "correlationId": "421314bd-2f5a-4924-b31e-9d1085d420e7",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Invalid credentials.\"}"
+    },
+    {
+      "folder": "8 Rate limiting",
+      "name": "TC-RL-06 Sixth failed login in a minute is throttled",
+      "method": "POST",
+      "url": "/auth/login",
+      "status": 429,
+      "ms": 661,
+      "correlationId": "8f8a8753-37a8-4b5c-8c1d-b3074cc60780",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 429",
+          "pass": true
+        },
+        {
+          "name": "Retry-After sent",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\n    \"message\": \"Too Many Attempts.\",\n    \"exception\": \"Illuminate\\\\Http\\\\Exceptions\\\\ThrottleRequestsException\",\n    \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests.php\",\n    \"line\": 256,\n    \"trace\": "
+    },
+    {
+      "folder": "9 Sign out",
+      "name": "TC-AUTH-08 Logout revokes the token",
+      "method": "POST",
+      "url": "/auth/logout",
+      "status": 200,
+      "ms": 666,
+      "correlationId": "80753f89-6b3f-4630-a0c1-4030c0510aef",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 200",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Signed out.\"}"
+    },
+    {
+      "folder": "9 Sign out",
+      "name": "TC-AUTH-09 Revoked token no longer works",
+      "method": "GET",
+      "url": "/tickets",
+      "status": 401,
+      "ms": 552,
+      "correlationId": "92cb1cde-f8da-422f-860f-6c48ae87881e",
+      "pass": true,
+      "tests": [
+        {
+          "name": "status is 401",
+          "pass": true
+        }
+      ],
+      "responseExcerpt": "{\"message\":\"Unauthenticated.\"}"
+    }
+  ]
+}

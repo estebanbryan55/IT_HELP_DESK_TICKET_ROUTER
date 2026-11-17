@@ -32,7 +32,13 @@ class _TicketListScreenState extends State<TicketListScreen> {
     return (json['data'] as List).map((e) => Ticket.fromJson(e as Map<String, dynamic>)).toList();
   }
 
-  void _refresh() => setState(() => _future = _load());
+  // Week 15 DEF-10: an arrow body here returned the Future from setState, which
+  // throws in debug builds, so "Try again" and "Refresh" did nothing.
+  void _refresh() {
+    setState(() {
+      _future = _load();
+    });
+  }
 
   Future<void> _open(Ticket t) async {
     await Navigator.of(context).push(MaterialPageRoute(
@@ -108,7 +114,7 @@ class _TicketListScreenState extends State<TicketListScreen> {
                 if (snap.hasError) {
                   final e = snap.error;
                   return MessageView(
-                    icon: e is ApiException && e.kind == ApiErrorKind.network ? Icons.cloud_off : Icons.error_outline,
+                    icon: e is ApiException && e.isTransient ? Icons.cloud_off : Icons.error_outline,
                     title: 'Could not load tickets',
                     detail: e.toString(),
                     action: OutlinedButton(onPressed: _refresh, child: const Text('Try again')),

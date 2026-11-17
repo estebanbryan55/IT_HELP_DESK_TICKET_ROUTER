@@ -24,9 +24,10 @@ return [
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['Authorization', 'Content-Type', 'Accept', 'X-Correlation-Id'],
+    // Week 15 DEF-07: Idempotency-Key must pass the browser preflight.
+    'allowed_headers' => ['Authorization', 'Content-Type', 'Accept', 'X-Correlation-Id', 'Idempotency-Key'],
 
-    'exposed_headers' => ['X-Correlation-Id'],
+    'exposed_headers' => ['X-Correlation-Id', 'Idempotent-Replayed', 'Retry-After'],
 
     'max_age' => 0,
 

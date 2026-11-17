@@ -1,12 +1,18 @@
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 import '../api/api_client.dart';
 import '../models/ticket.dart';
 
 /// Holds the signed-in user and the in-memory bearer token.
 class Session extends ChangeNotifier {
-  Session() {
-    api = ApiClient(onUnauthenticated: () => _clear('Your session expired. Please sign in again.'));
+  /// [client] and [timeout] are injectable so state tests can simulate the API.
+  Session({http.Client? client, Duration? timeout}) {
+    api = ApiClient(
+      client: client,
+      timeout: timeout,
+      onUnauthenticated: () => _clear('Your session expired. Please sign in again.'),
+    );
   }
 
   late final ApiClient api;

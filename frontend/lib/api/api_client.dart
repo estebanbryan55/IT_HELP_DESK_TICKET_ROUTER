@@ -12,6 +12,7 @@ enum ApiErrorKind {
   notFound,
   conflict,
   rateLimited,
+  unavailable,
   network,
   server,
 }
@@ -26,6 +27,9 @@ class ApiException implements Exception {
 
   String? fieldError(String field) => fieldErrors[field]?.first;
 
+  /// Safe to retry the same request later (the server or network was the problem).
+  bool get isTransient => kind == ApiErrorKind.network || kind == ApiErrorKind.unavailable;
+
   @override
   String toString() => message;
 }
@@ -34,32 +38,36 @@ class ApiException implements Exception {
 /// localStorage), so a page reload signs the user out; this limits how long a
 /// stolen token stays usable from the browser.
 class ApiClient {
-  ApiClient({http.Client? client, this.onUnauthenticated}) : _http = client ?? http.Client();
+  ApiClient({http.Client? client, this.onUnauthenticated, Duration? timeout})
+      : _http = client ?? http.Client(),
+        _timeout = timeout ?? AppConfig.requestTimeout;
 
   final http.Client _http;
+  final Duration _timeout;
   final void Function()? onUnauthenticated;
   String? token;
 
   Future<Map<String, dynamic>> get(String path) => _send('GET', path);
 
-  Future<Map<String, dynamic>> post(String path, [Map<String, dynamic>? body]) =>
-      _send('POST', path, body);
+  Future<Map<String, dynamic>> post(String path, [Map<String, dynamic>? body, Map<String, String> headers = const {}]) =>
+      _send('POST', path, body, headers);
 
-  Future<Map<String, dynamic>> _send(String method, String path, [Map<String, dynamic>? body]) async {
+  Future<Map<String, dynamic>> _send(String method, String path,
+      [Map<String, dynamic>? body, Map<String, String> extraHeaders = const {}]) async {
     final uri = Uri.parse('${AppConfig.apiBaseUrl}$path');
     final request = http.Request(method, uri)
       ..headers.addAll({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         if (token != null) 'Authorization': 'Bearer $token',
+        ...extraHeaders,
       });
     if (body != null) request.body = jsonEncode(body);
 
     http.Response response;
     try {
-      response = await http.Response.fromStream(
-        await _http.send(request).timeout(AppConfig.requestTimeout),
-      );
+      // The timeout covers the whole exchange (headers and body), not just the first byte.
+      response = await _http.send(request).then(http.Response.fromStream).timeout(_timeout);
     } on TimeoutException {
       throw ApiException(ApiErrorKind.network, 'The server took too long to respond. Please try again.');
     } catch (_) {
@@ -67,6 +75,7 @@ class ApiClient {
     }
 
     final correlationId = response.headers['x-correlation-id'];
+    final ref = correlationId != null && correlationId.length >= 8 ? ' (ref ${correlationId.substring(0, 8)})' : '';
     Map<String, dynamic> json = {};
     if (response.body.isNotEmpty) {
       try {
@@ -89,7 +98,9 @@ class ApiClient {
         throw ApiException(ApiErrorKind.forbidden,
             serverMessage ?? 'You are not permitted to do this.', correlationId: correlationId);
       case 404:
-        throw ApiException(ApiErrorKind.notFound, 'That ticket was not found.', correlationId: correlationId);
+        // The API answers 404 both for missing tickets and for tickets the user may not see.
+        throw ApiException(ApiErrorKind.notFound, 'That ticket was not found or is not available to you.',
+            correlationId: correlationId);
       case 409:
         throw ApiException(ApiErrorKind.conflict,
             serverMessage ?? 'The ticket changed. Refresh and try again.', correlationId: correlationId);
@@ -102,10 +113,15 @@ class ApiClient {
       case 429:
         throw ApiException(ApiErrorKind.rateLimited, 'Too many attempts. Please wait a minute and try again.',
             correlationId: correlationId);
+      case 502:
+      case 503:
+      case 504:
+        throw ApiException(ApiErrorKind.unavailable,
+            'The help desk service is temporarily unavailable. Please try again shortly$ref.',
+            correlationId: correlationId);
       default:
         // Never show raw server output; give the reference so support can find the log entry.
-        throw ApiException(ApiErrorKind.server,
-            'Something went wrong on the server${correlationId != null ? ' (ref ${correlationId.substring(0, 8)})' : ''}.',
+        throw ApiException(ApiErrorKind.server, 'Something went wrong on the server$ref.',
             correlationId: correlationId);
     }
   }

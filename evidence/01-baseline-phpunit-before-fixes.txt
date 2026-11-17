@@ -1,0 +1,53 @@
+Authentication (Tests\Feature\Authentication)
+
+Dependency Failure (Tests\Feature\DependencyFailure)
+  ✘ Def04 database outage returns safe 503
+      -> Expected response status code [503] but received 500.
+  ✘ Def04 health reports database unavailable
+      -> Expected response status code [503] but received 404.
+  ✘ Def08 gateway timeout is bounded and reported
+      -> Illuminate\Http\Client\ConnectionException: cURL error 28: Operation timed out after 3000 milliseconds
+  ✘ Def08 gateway recovers from one transient failure
+      -> Illuminate\Http\Client\ConnectionException: cURL error 7: Connection refused
+
+Example (Tests\Feature\Example)
+
+Example (Tests\Unit\Example)
+
+Integration Contract (Tests\Feature\IntegrationContract)
+
+Integration Signature (Tests\Feature\IntegrationSignature)
+
+Protected Data (Tests\Feature\ProtectedData)
+
+Redact Sensitive Data (Tests\Unit\RedactSensitiveData)
+
+Ticket Authorization (Tests\Feature\TicketAuthorization)
+
+Transport Security (Tests\Feature\TransportSecurity)
+
+Week15Hardening (Tests\Feature\Week15Hardening)
+  ✘ Def01 requester gets 404 not 403 for someone elses ticket
+      -> Expected response status code [404] but received 403.
+  ✘ Def01 agent cannot probe other agents ticket
+      -> Expected response status code [404] but received 403.
+  ✘ Def02 duplicate submission with same key creates one ticket
+      -> Expected response status code [200] but received 201.
+  ✘ Def02 same key with different payload is conflict
+      -> Expected response status code [409] but received 201.
+  ✘ Def02 malformed idempotency key is rejected
+      -> Expected response status code [422] but received 201.
+  ✘ Def03 confirm on unresolved ticket is 409
+      -> Expected response status code [409] but received 403.
+  ✘ Def03 assign on closed ticket is 409
+      -> Expected response status code [409] but received 403.
+  ✘ Def05 unknown status filter is rejected
+      -> Expected response status code [422] but received 200.
+  ✘ Def06 method not allowed is generic
+      -> Failed asserting that '{\n
+  ✘ Def07 cors allows idempotency header from flutter origin
+      -> Failed asserting that 'authorization, content-type, accept, x-correlation-id' [ASCII](length: 53) contains "idempotency-key" [ASCII](length: 15).
+  ✘ Def04 health endpoint reports ok
+      -> Expected response status code [200] but received 404.
+
+Tests: 72, Assertions: 206, Errors: 2, Failures: 13.

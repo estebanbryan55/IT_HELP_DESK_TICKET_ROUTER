@@ -1,0 +1,51 @@
+PASS  200   574ms  TC-HLT-01 Health check reports database ok
+PASS  200   968ms  TC-AUTH-01 Login as student (requester)
+PASS  200   925ms  TC-AUTH-02 Login as employee (requester)
+PASS  200   901ms  TC-AUTH-03a Login as network agent
+PASS  200   898ms  TC-AUTH-03b Login as hardware agent
+PASS  200   885ms  TC-AUTH-03c Login as supervisor
+PASS  401   881ms  TC-AUTH-04 Wrong password gives generic 401
+PASS  422   484ms  TC-AUTH-05 Malformed email rejected
+PASS  401   411ms  TC-AUTH-06 No token gives 401
+PASS  401   407ms  TC-AUTH-07 Forged token gives 401
+PASS  201   566ms  TC-FUN-01 Requester submits ticket (routed to network agent)
+PASS  200   515ms  TC-FUN-02 Requester list contains the new ticket
+PASS  200   532ms  TC-FUN-03 Agent starts work
+PASS  422   526ms  TC-FUN-04 Resolve without note is rejected
+PASS  200   528ms  TC-FUN-05 Agent resolves with note
+PASS  200   535ms  TC-FUN-06 Requester confirms fix and ticket closes
+PASS  422   567ms  TC-VAL-01 Invalid category, short subject, bad phone
+PASS  422   517ms  TC-VAL-02 Subject of 121 characters rejected (upper bound + 1)
+PASS  201   550ms  TC-VAL-03 Subject of exactly 120 characters accepted (upper bound)
+PASS  422   521ms  TC-VAL-04 Malformed JSON body gives 422, not 500
+PASS  201   567ms  TC-VAL-05 Client-supplied status/requester ignored (mass assignment)
+PASS  422   526ms  TC-VAL-06 Unknown status filter rejected
+PASS  404   498ms  TC-AZ-01 Requester cannot read another requester's ticket (no existence leak)
+PASS  404   505ms  TC-AZ-02 Agent cannot read a ticket assigned to another agent
+PASS  403   519ms  TC-AZ-03 Requester cannot change status of own ticket
+PASS  403   494ms  TC-AZ-04 Requester cannot list agents
+PASS  404   536ms  TC-AZ-05 Unknown ticket id
+PASS  404   512ms  TC-AZ-06 Requester cannot confirm another requester's ticket
+PASS  200   487ms  TC-AZ-07 Supervisor can read any ticket
+PASS  200   542ms  TC-DUP-01 Same Idempotency-Key replays the original ticket
+PASS  409   519ms  TC-DUP-02 Same key with a different payload is refused
+PASS  409   494ms  TC-STA-01 Closed ticket cannot be reopened by transition
+PASS  409   494ms  TC-STA-02 Confirming an unresolved ticket is a conflict, not a permission error
+PASS  409   486ms  TC-STA-03 Reassigning a closed ticket is a conflict
+PASS  405   382ms  TC-CON-01 Wrong HTTP method gives generic 405
+PASS  200   380ms  TC-CON-02 Client correlation id is echoed
+PASS  200   575ms  TC-CON-03 Security headers present
+PASS  204   361ms  TC-CON-04 CORS preflight from the Flutter origin allowed
+PASS  204   347ms  TC-CON-05 CORS preflight from an unknown origin not allowed
+PASS  204   352ms  TC-CON-07 CORS preflight allows the Idempotency-Key header
+PASS  401   457ms  TC-CON-06 Unsigned gateway message rejected
+PASS  401   874ms  TC-RL-01 Failed login 1/5
+PASS  401   865ms  TC-RL-02 Failed login 2/5
+PASS  401   864ms  TC-RL-03 Failed login 3/5
+PASS  401   894ms  TC-RL-04 Failed login 4/5
+PASS  401   937ms  TC-RL-05 Failed login 5/5
+PASS  429   418ms  TC-RL-06 Sixth failed login in a minute is throttled
+PASS  200   476ms  TC-AUTH-08 Logout revokes the token
+PASS  401   444ms  TC-AUTH-09 Revoked token no longer works
+
+REGRESSION (Week 15 code, after fixes): 49/49 requests passed, 0 failed  (2026-11-17T06:12:52.794Z)

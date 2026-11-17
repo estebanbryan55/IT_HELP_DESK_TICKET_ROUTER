@@ -1,0 +1,707 @@
+PHPUnit 12.5.43 by Sebastian Bergmann and contributors.
+Runtime: PHP 8.4.14
+Configuration: C:\Users\Celi\Documents\1aaaaa\week15\backend\phpunit.xml
+Time: 00:05.385, Memory: 66.00 MB
+Authentication (Tests\Feature\Authentication)
+ Valid login returns expiring bearer token
+ Tokens are stored hashed not in plain text
+ Wrong password and unknown email get same generic error
+ Deactivated account cannot log in
+ Login is rate limited after five attempts
+ Missing token is rejected
+ Invalid token is rejected
+ Expired token is rejected
+ Logout revokes the token
+ Token of account disabled after login is rejected
+Dependency Failure (Tests\Feature\DependencyFailure)
+ ✘ Def04 database outage returns safe 503
+ Expected response status code [503] but received 500. 
+ Failed asserting that 500 is identical to 503. 
+ The following exception occurred during the last request: 
+ Illuminate\Database\SQLiteDatabaseDoesNotExistException: Database file at path [C:\Users\Celi\Documents\1aaaaa\week15\backend\storage\framework/testing/does-not-exist/missing.sqlite] does not exist. Ensure this is an absolute path to the database. in C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connectors\SQLiteConnector.php:61
+ Stack trace: 
+ #0 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connectors\SQLiteConnector.php(19): Illuminate\Database\Connectors\SQLiteConnector->parseDatabasePath()
+ #1 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connectors\ConnectionFactory.php(259): Illuminate\Database\Connectors\SQLiteConnector->connect()
+ #2 [internal function]: Illuminate\Database\Connectors\ConnectionFactory->{closure:Illuminate\Database\Connectors\ConnectionFactory::createPdoResolverWithoutHosts():259}()
+ #3 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(1333): call_user_func()
+ #4 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(1371): Illuminate\Database\Connection->getPdo()
+ #5 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(549): Illuminate\Database\Connection->getReadPdo()
+ #6 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(442): Illuminate\Database\Connection->getPdoForSelect()
+ #7 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(853): Illuminate\Database\Connection->{closure:Illuminate\Database\Connection::select():433}()
+ #8 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(820): Illuminate\Database\Connection->runQueryCallback()
+ #9 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(433): Illuminate\Database\Connection->run()
+ #10 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3640): Illuminate\Database\Connection->select()
+ #11 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3624): Illuminate\Database\Query\Builder->runSelect()
+ #12 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(951): Illuminate\Database\Query\Builder->get()
+ #13 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(933): Illuminate\Database\Eloquent\Builder->getModels()
+ #14 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Concerns\BuildsQueries.php(427): Illuminate\Database\Eloquent\Builder->get()
+ #15 C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Http\Controllers\Api\AuthController.php(20): Illuminate\Database\Eloquent\Builder->first()
+ #16 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(46): App\Http\Controllers\Api\AuthController->login()
+ #17 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Route.php(276): Illuminate\Routing\ControllerDispatcher->dispatch()
+ #18 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Route.php(216): Illuminate\Routing\Route->runController()
+ #19 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(835): Illuminate\Routing\Route->run()
+ #20 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(180): Illuminate\Routing\Router->{closure:Illuminate\Routing\Router::runRouteWithinStack():834}()
+ #21 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(52): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
+ #22 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Routing\Middleware\SubstituteBindings->handle()
+ #23 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(168): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #24 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(129): Illuminate\Routing\Middleware\ThrottleRequests->handleRequest()
+ #25 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(90): Illuminate\Routing\Middleware\ThrottleRequests->handleRequestUsingNamedLimiter()
+ #26 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Routing\Middleware\ThrottleRequests->handle()
+ #27 C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Http\Middleware\RequireHttps.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #28 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\RequireHttps->handle()
+ #29 C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Http\Middleware\SecurityHeaders.php(13): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #30 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\SecurityHeaders->handle()
+ #31 C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Http\Middleware\AssignCorrelationId.php(24): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #32 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\AssignCorrelationId->handle()
+ #33 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #34 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(834): Illuminate\Pipeline\Pipeline->then()
+ #35 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(813): Illuminate\Routing\Router->runRouteWithinStack()
+ #36 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(777): Illuminate\Routing\Router->runRoute()
+ #37 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(766): Illuminate\Routing\Router->dispatchToRoute()
+ #38 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(200): Illuminate\Routing\Router->dispatch()
+ #39 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(180): Illuminate\Foundation\Http\Kernel->{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}()
+ #40 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
+ #41 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+ #42 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle()
+ #43 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #44 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+ #45 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\TrimStrings->handle()
+ #46 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #47 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\ValidatePostSize->handle()
+ #48 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #49 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle()
+ #50 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(74): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #51 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\HandleCors->handle()
+ #52 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #53 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\TrustProxies->handle()
+ #54 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #55 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle()
+ #56 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePathEncoding.php(28): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #57 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\ValidatePathEncoding->handle()
+ #58 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #59 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(175): Illuminate\Pipeline\Pipeline->then()
+ #60 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+ #61 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(638): Illuminate\Foundation\Http\Kernel->handle()
+ #62 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(604): Illuminate\Foundation\Testing\TestCase->call()
+ #63 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json()
+ #64 C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\DependencyFailureTest.php(31): Illuminate\Foundation\Testing\TestCase->postJson()
+ #65 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestCase.php(1343): Tests\Feature\DependencyFailureTest->test_def04_database_outage_returns_safe_503()
+ #66 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestCase.php(1380): PHPUnit\Framework\TestCase->invokeTestMethod()
+ #67 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestCase.php(521): PHPUnit\Framework\TestCase->runTest()
+ #68 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(98): PHPUnit\Framework\TestCase->runBare()
+ #69 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestCase.php(361): PHPUnit\Framework\TestRunner->run()
+ #70 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestSuite.php(379): PHPUnit\Framework\TestCase->run()
+ #71 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestSuite.php(379): PHPUnit\Framework\TestSuite->run()
+ #72 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestSuite.php(379): PHPUnit\Framework\TestSuite->run()
+ #73 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+ #74 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\TextUI\Application.php(228): PHPUnit\TextUI\TestRunner->run()
+ #75 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run()
+ #76 {main} 
+ Next Illuminate\Database\QueryException: Database file at path [C:\Users\Celi\Documents\1aaaaa\week15\backend\storage\framework/testing/does-not-exist/missing.sqlite] does not exist. Ensure this is an absolute path to the database. (Connection: sqlite, Database: C:\Users\Celi\Documents\1aaaaa\week15\backend\storage\framework/testing/does-not-exist/missing.sqlite, SQL: select * from "users" where "email" = student@example.test limit 1) in C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php:864
+ Stack trace: 
+ #0 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(820): Illuminate\Database\Connection->runQueryCallback()
+ #1 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php(433): Illuminate\Database\Connection->run()
+ #2 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3640): Illuminate\Database\Connection->select()
+ #3 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php(3624): Illuminate\Database\Query\Builder->runSelect()
+ #4 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(951): Illuminate\Database\Query\Builder->get()
+ #5 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php(933): Illuminate\Database\Eloquent\Builder->getModels()
+ #6 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Database\Concerns\BuildsQueries.php(427): Illuminate\Database\Eloquent\Builder->get()
+ #7 C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Http\Controllers\Api\AuthController.php(20): Illuminate\Database\Eloquent\Builder->first()
+ #8 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(46): App\Http\Controllers\Api\AuthController->login()
+ #9 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Route.php(276): Illuminate\Routing\ControllerDispatcher->dispatch()
+ #10 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Route.php(216): Illuminate\Routing\Route->runController()
+ #11 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(835): Illuminate\Routing\Route->run()
+ #12 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(180): Illuminate\Routing\Router->{closure:Illuminate\Routing\Router::runRouteWithinStack():834}()
+ #13 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(52): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
+ #14 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Routing\Middleware\SubstituteBindings->handle()
+ #15 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(168): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #16 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(129): Illuminate\Routing\Middleware\ThrottleRequests->handleRequest()
+ #17 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php(90): Illuminate\Routing\Middleware\ThrottleRequests->handleRequestUsingNamedLimiter()
+ #18 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Routing\Middleware\ThrottleRequests->handle()
+ #19 C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Http\Middleware\RequireHttps.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #20 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\RequireHttps->handle()
+ #21 C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Http\Middleware\SecurityHeaders.php(13): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #22 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\SecurityHeaders->handle()
+ #23 C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Http\Middleware\AssignCorrelationId.php(24): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #24 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): App\Http\Middleware\AssignCorrelationId->handle()
+ #25 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #26 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(834): Illuminate\Pipeline\Pipeline->then()
+ #27 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(813): Illuminate\Routing\Router->runRouteWithinStack()
+ #28 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(777): Illuminate\Routing\Router->runRoute()
+ #29 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Routing\Router.php(766): Illuminate\Routing\Router->dispatchToRoute()
+ #30 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(200): Illuminate\Routing\Router->dispatch()
+ #31 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(180): Illuminate\Foundation\Http\Kernel->{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}()
+ #32 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
+ #33 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+ #34 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle()
+ #35 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #36 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+ #37 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\TrimStrings->handle()
+ #38 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #39 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\ValidatePostSize->handle()
+ #40 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #41 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle()
+ #42 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(74): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #43 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\HandleCors->handle()
+ #44 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #45 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\TrustProxies->handle()
+ #46 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #47 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle()
+ #48 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePathEncoding.php(28): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #49 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(219): Illuminate\Http\Middleware\ValidatePathEncoding->handle()
+ #50 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+ #51 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(175): Illuminate\Pipeline\Pipeline->then()
+ #52 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(144): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+ #53 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(638): Illuminate\Foundation\Http\Kernel->handle()
+ #54 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(604): Illuminate\Foundation\Testing\TestCase->call()
+ #55 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json()
+ #56 C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\DependencyFailureTest.php(31): Illuminate\Foundation\Testing\TestCase->postJson()
+ #57 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestCase.php(1343): Tests\Feature\DependencyFailureTest->test_def04_database_outage_returns_safe_503()
+ #58 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestCase.php(1380): PHPUnit\Framework\TestCase->invokeTestMethod()
+ #59 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestCase.php(521): PHPUnit\Framework\TestCase->runTest()
+ #60 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(98): PHPUnit\Framework\TestCase->runBare()
+ #61 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestCase.php(361): PHPUnit\Framework\TestRunner->run()
+ #62 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestSuite.php(379): PHPUnit\Framework\TestCase->run()
+ #63 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestSuite.php(379): PHPUnit\Framework\TestSuite->run()
+ #64 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\Framework\TestSuite.php(379): PHPUnit\Framework\TestSuite->run()
+ #65 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+ #66 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\src\TextUI\Application.php(228): PHPUnit\TextUI\TestRunner->run()
+ #67 C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run()
+ #68 {main} 
+ ----------------------------------------------------------------------------------
+ Database file at path [C:\Users\Celi\Documents\1aaaaa\week15\backend\storage\framework/testing/does-not-exist/missing.sqlite] does not exist. Ensure this is an absolute path to the database. (Connection: sqlite, Database: C:\Users\Celi\Documents\1aaaaa\week15\backend\storage\framework/testing/does-not-exist/missing.sqlite, SQL: select * from "users" where "email" = student@example.test limit 1)
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\DependencyFailureTest.php:33
+ ✘ Def04 health reports database unavailable
+ Expected response status code [503] but received 404.
+ Failed asserting that 404 is identical to 503. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\DependencyFailureTest.php:51
+ ✘ Def08 gateway timeout is bounded and reported
+ Illuminate\Http\Client\ConnectionException: cURL error 28: Operation timed out after 3000 milliseconds
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\DependencyFailureTest.php:66
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\Factory.php:356
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\HigherOrderCollectionProxy.php:65
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\HigherOrderCollectionProxy.php:65
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\Arr.php:868
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\Collection.php:844
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\HigherOrderCollectionProxy.php:62
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1825
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1796
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1782
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\PrepareBodyMiddleware.php:77
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Middleware.php:65
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\AuthMiddleware.php:100
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\RedirectMiddleware.php:88
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Middleware.php:98
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\HandlerStack.php:89
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Client.php:1514
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Client.php:561
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Client.php:658
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1412
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1086
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Support\helpers.php:328
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1080
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:920
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Console\Commands\SendGatewayMessage.php:62
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Console\Commands\SendGatewayMessage.php:64
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\Util.php:43
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:96
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:35
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\Container.php:803
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Console\Command.php:292
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\symfony\console\Command\Command.php:285
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Console\Command.php:261
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\symfony\console\Application.php:1131
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\symfony\console\Application.php:380
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\symfony\console\Application.php:219
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Console\Application.php:165
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php:450
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:452
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:676
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\DependencyFailureTest.php:71
+ ✘ Def08 gateway recovers from one transient failure
+ Illuminate\Http\Client\ConnectionException: cURL error 7: Connection refused
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\DependencyFailureTest.php:86
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\Factory.php:356
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\HigherOrderCollectionProxy.php:65
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\HigherOrderCollectionProxy.php:65
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\Arr.php:868
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\Collection.php:844
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Collections\HigherOrderCollectionProxy.php:62
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1825
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1796
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1782
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\PrepareBodyMiddleware.php:77
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Middleware.php:65
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\AuthMiddleware.php:100
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\RedirectMiddleware.php:88
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Middleware.php:98
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\HandlerStack.php:89
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Client.php:1514
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Client.php:561
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\guzzlehttp\guzzle\src\Client.php:658
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1412
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1086
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Support\helpers.php:328
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:1080
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Http\Client\PendingRequest.php:920
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Console\Commands\SendGatewayMessage.php:62
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\app\Console\Commands\SendGatewayMessage.php:64
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\Util.php:43
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:96
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:35
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Container\Container.php:803
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Console\Command.php:292
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\symfony\console\Command\Command.php:285
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Console\Command.php:261
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\symfony\console\Application.php:1131
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\symfony\console\Application.php:380
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\symfony\console\Application.php:219
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Console\Application.php:165
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php:450
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:452
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:676
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\DependencyFailureTest.php:92
+Example (Tests\Feature\Example)
+ The application returns a successful response
+Example (Tests\Unit\Example)
+ That true is true
+Integration Contract (Tests\Feature\IntegrationContract)
+ Subject boundaries 5 and 120 accepted 4 and 121 rejected
+ Description boundaries 10 and 2000
+ Whitespace only subject is treated as missing
+ Malformed json is a validation error not a server error
+ Client cannot set server owned fields
+ Html in text fields is stored and returned as plain data
+ Ticket response shape matches flutter model
+ List is paginated with meta
+ Every api response carries a correlation id
+Integration Signature (Tests\Feature\IntegrationSignature)
+ Valid signed message creates ticket
+ Altered body is rejected
+ Expired timestamp is rejected
+ Future timestamp beyond tolerance is rejected
+ Replayed message is rejected
+ Signature from wrong secret is rejected
+ Unknown key id is rejected
+ Missing headers are rejected
+ Unregistered requester is not auto created
+ Rejected forgeries do not consume nonces
+Protected Data (Tests\Feature\ProtectedData)
+ Contact number and access note are encrypted at rest
+ Same plaintext produces different ciphertext
+ Altered ciphertext is detected and not returned
+ Ciphertext from a different key is rejected
+ Unassigned agent never sees protected fields and supervisor does
+ List endpoint does not expose protected fields
+ Api responses never include password hashes
+Redact Sensitive Data (Tests\Unit\RedactSensitiveData)
+ Secret keys are masked at any depth
+ Bearer tokens inside free text are masked
+Ticket Authorization (Tests\Feature\TicketAuthorization)
+ Requester creates ticket and it is routed to specialised agent
+ Invalid input is rejected with field errors
+ Requester cannot view another requesters ticket
+ Ticket list is scoped to the caller
+ Requester cannot change status or assign
+ Agent cannot work a ticket assigned to someone else
+ Full workflow assign resolve confirm close
+ Invalid status transition is refused
+ Supervisor can reassign only to an active agent
+ Unknown ticket returns generic not found
+Transport Security (Tests\Feature\TransportSecurity)
+ Plain http is refused when https is required
+ Https request is accepted and gets hsts
+ Security headers are present on api responses
+ Wellformed correlation id is echoed and malformed one is replaced
+ Cors allows only the configured frontend origin
+Week15Hardening (Tests\Feature\Week15Hardening)
+ ✘ Def01 requester gets 404 not 403 for someone elses ticket
+ Expected response status code [404] but received 403.
+ Failed asserting that 403 is identical to 404. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:151
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:35
+ ✘ Def01 agent cannot probe other agents ticket
+ Expected response status code [404] but received 403.
+ Failed asserting that 403 is identical to 404. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:151
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:45
+ Def01 visible ticket with missing permission is still 403
+ ✘ Def02 duplicate submission with same key creates one ticket
+ Expected response status code [200] but received 201.
+ Failed asserting that 201 is identical to 200. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:16
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:67
+ ✘ Def02 same key with different payload is conflict
+ Expected response status code [409] but received 201.
+ Failed asserting that 201 is identical to 409. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:81
+ Def02 keys are scoped to the requester
+ ✘ Def02 malformed idempotency key is rejected
+ Expected response status code [422] but received 201.
+ Failed asserting that 201 is identical to 422. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:103
+ ✘ Def03 confirm on unresolved ticket is 409
+ Expected response status code [409] but received 403.
+ Failed asserting that 403 is identical to 409. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:114
+ ✘ Def03 assign on closed ticket is 409
+ Expected response status code [409] but received 403.
+ Failed asserting that 403 is identical to 409. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:124
+ ✘ Def05 unknown status filter is rejected
+ Expected response status code [422] but received 200.
+ Failed asserting that 200 is identical to 422. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:132
+ ✘ Def06 method not allowed is generic
+ Failed asserting that '{\n 
+ "message": "The GET method is not supported for route api/v1/auth/login. Supported methods: POST.",\n
+ "exception": "Symfony\\Component\\HttpKernel\\Exception\\MethodNotAllowedHttpException",\n
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\AbstractRouteCollection.php",\n
+ "line": 130,\n 
+ "trace": [\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\AbstractRouteCollection.php",\n
+ "line": 115,\n 
+ "function": "requestMethodNotAllowed",\n 
+ "class": "Illuminate\\Routing\\AbstractRouteCollection",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\AbstractRouteCollection.php",\n
+ "line": 41,\n 
+ "function": "getRouteForMethods",\n 
+ "class": "Illuminate\\Routing\\AbstractRouteCollection",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteCollection.php",\n
+ "line": 207,\n 
+ "function": "handleMatchedRoute",\n 
+ "class": "Illuminate\\Routing\\AbstractRouteCollection",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",\n
+ "line": 790,\n 
+ "function": "match",\n 
+ "class": "Illuminate\\Routing\\RouteCollection",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",\n
+ "line": 777,\n 
+ "function": "findRoute",\n 
+ "class": "Illuminate\\Routing\\Router",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",\n
+ "line": 766,\n 
+ "function": "dispatchToRoute",\n 
+ "class": "Illuminate\\Routing\\Router",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",\n
+ "line": 200,\n 
+ "function": "dispatch",\n 
+ "class": "Illuminate\\Routing\\Router",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 180,\n 
+ "function": "{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}",\n
+ "class": "Illuminate\\Foundation\\Http\\Kernel",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",\n
+ "line": 38,\n 
+ "function": "{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php",\n
+ "line": 31,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",\n
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 219,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",\n
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",\n
+ "line": 38,\n 
+ "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php",\n
+ "line": 51,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",\n
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 219,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",\n
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php",\n
+ "line": 27,\n 
+ "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 219,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Http\\Middleware\\ValidatePostSize",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",\n
+ "line": 110,\n 
+ "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 219,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",\n
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php",\n
+ "line": 74,\n 
+ "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 219,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Http\\Middleware\\HandleCors",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php",\n
+ "line": 58,\n 
+ "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 219,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Http\\Middleware\\TrustProxies",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php",\n
+ "line": 22,\n 
+ "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 219,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks",\n
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePathEncoding.php",\n
+ "line": 28,\n 
+ "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 219,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Http\\Middleware\\ValidatePathEncoding",\n
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",\n
+ "line": 137,\n 
+ "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",\n
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",\n
+ "line": 175,\n 
+ "function": "then",\n 
+ "class": "Illuminate\\Pipeline\\Pipeline",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",\n
+ "line": 144,\n 
+ "function": "sendRequestThroughRouter",\n 
+ "class": "Illuminate\\Foundation\\Http\\Kernel",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php",\n
+ "line": 638,\n 
+ "function": "handle",\n 
+ "class": "Illuminate\\Foundation\\Http\\Kernel",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php",\n
+ "line": 604,\n 
+ "function": "call",\n 
+ "class": "Illuminate\\Foundation\\Testing\\TestCase",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php",\n
+ "line": 381,\n 
+ "function": "json",\n 
+ "class": "Illuminate\\Foundation\\Testing\\TestCase",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php",\n
+ "line": 139,\n 
+ "function": "getJson",\n 
+ "class": "Illuminate\\Foundation\\Testing\\TestCase",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php",\n
+ "line": 1343,\n 
+ "function": "test_def06_method_not_allowed_is_generic",\n 
+ "class": "Tests\\Feature\\Week15HardeningTest",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php",\n
+ "line": 1380,\n 
+ "function": "invokeTestMethod",\n 
+ "class": "PHPUnit\\Framework\\TestCase",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php",\n
+ "line": 521,\n 
+ "function": "runTest",\n 
+ "class": "PHPUnit\\Framework\\TestCase",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestRunner\\TestRunner.php",\n
+ "line": 98,\n 
+ "function": "runBare",\n 
+ "class": "PHPUnit\\Framework\\TestCase",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php",\n
+ "line": 361,\n 
+ "function": "run",\n 
+ "class": "PHPUnit\\Framework\\TestRunner",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php",\n
+ "line": 379,\n 
+ "function": "run",\n 
+ "class": "PHPUnit\\Framework\\TestCase",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php",\n
+ "line": 379,\n 
+ "function": "run",\n 
+ "class": "PHPUnit\\Framework\\TestSuite",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php",\n
+ "line": 379,\n 
+ "function": "run",\n 
+ "class": "PHPUnit\\Framework\\TestSuite",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\TextUI\\TestRunner.php",\n
+ "line": 64,\n 
+ "function": "run",\n 
+ "class": "PHPUnit\\Framework\\TestSuite",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\TextUI\\Application.php",\n
+ "line": 228,\n 
+ "function": "run",\n 
+ "class": "PHPUnit\\TextUI\\TestRunner",\n 
+ "type": "->"\n 
+ },\n 
+ {\n 
+ "file": "C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\phpunit",\n
+ "line": 104,\n 
+ "function": "run",\n 
+ "class": "PHPUnit\\TextUI\\Application",\n 
+ "type": "->"\n 
+ }\n 
+ ]\n 
+ }' [ASCII](length: 15003) does not contain "Supported methods" [ASCII](length: 17).
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:141
+ ✘ Def07 cors allows idempotency header from flutter origin
+ Failed asserting that 'authorization, content-type, accept, x-correlation-id' [ASCII](length: 53) contains "idempotency-key" [ASCII](length: 15).
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:160
+ ✘ Def04 health endpoint reports ok
+ Expected response status code [200] but received 404.
+ Failed asserting that 404 is identical to 200. 
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:183
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\vendor\laravel\framework\src\Illuminate\Testing\Concerns\AssertsStatusCodes.php:16
+ C:\Users\Celi\Documents\1aaaaa\week15\backend\tests\Feature\Week15HardeningTest.php:167
+ERRORS!
+Tests: 72, Assertions: 206, Errors: 2, Failures: 13.
+{"tool":"phpunit","result":"failed","tests":72,"passed":57,"assertions":206,"duration_ms":5391,"failed":13,"failures":[{"test":"Tests\\Feature\\DependencyFailureTest::test_def04_database_outage_returns_safe_503","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php","line":33,"message":"Expected response status code [503] but received 500.\nFailed asserting that 500 is identical to 503.\r\n\r\nThe following exception occurred during the last request:\n\nIlluminate\\Database\\SQLiteDatabaseDoesNotExistException: Database file at path [C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\storage\\framework/testing/does-not-exist/missing.sqlite] does not exist. Ensure this is an absolute path to the database. in C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\SQLiteConnector.php:61\nStack trace:\n#0 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\SQLiteConnector.php(19): Illuminate\\Database\\Connectors\\SQLiteConnector->parseDatabasePath()\n#1 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php(259): Illuminate\\Database\\Connectors\\SQLiteConnector->connect()\n#2 [internal function]: Illuminate\\Database\\Connectors\\ConnectionFactory->{closure:Illuminate\\Database\\Connectors\\ConnectionFactory::createPdoResolverWithoutHosts():259}()\n#3 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(1333): call_user_func()\n#4 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(1371): Illuminate\\Database\\Connection->getPdo()\n#5 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(549): Illuminate\\Database\\Connection->getReadPdo()\n#6 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(442): Illuminate\\Database\\Connection->getPdoForSelect()\n#7 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(853): Illuminate\\Database\\Connection->{closure:Illuminate\\Database\\Connection::select():433}()\n#8 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(820): Illuminate\\Database\\Connection->runQueryCallback()\n#9 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(433): Illuminate\\Database\\Connection->run()\n#10 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3640): Illuminate\\Database\\Connection->select()\n#11 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3624): Illuminate\\Database\\Query\\Builder->runSelect()\n#12 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(951): Illuminate\\Database\\Query\\Builder->get()\n#13 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(933): Illuminate\\Database\\Eloquent\\Builder->getModels()\n#14 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Concerns\\BuildsQueries.php(427): Illuminate\\Database\\Eloquent\\Builder->get()\n#15 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Http\\Controllers\\Api\\AuthController.php(20): Illuminate\\Database\\Eloquent\\Builder->first()\n#16 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\AuthController->login()\n#17 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(276): Illuminate\\Routing\\ControllerDispatcher->dispatch()\n#18 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(216): Illuminate\\Routing\\Route->runController()\n#19 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(835): Illuminate\\Routing\\Route->run()\n#20 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():834}()\n#21 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(52): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}()\n#22 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()\n#23 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(168): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#24 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(129): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()\n#25 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(90): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()\n#26 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()\n#27 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Http\\Middleware\\RequireHttps.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#28 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\RequireHttps->handle()\n#29 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Http\\Middleware\\SecurityHeaders.php(13): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#30 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\SecurityHeaders->handle()\n#31 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Http\\Middleware\\AssignCorrelationId.php(24): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#32 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\AssignCorrelationId->handle()\n#33 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#34 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(834): Illuminate\\Pipeline\\Pipeline->then()\n#35 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(813): Illuminate\\Routing\\Router->runRouteWithinStack()\n#36 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(777): Illuminate\\Routing\\Router->runRoute()\n#37 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(766): Illuminate\\Routing\\Router->dispatchToRoute()\n#38 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch()\n#39 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}()\n#40 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(38): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}()\n#41 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()\n#42 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()\n#43 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(38): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#44 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()\n#45 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()\n#46 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#47 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()\n#48 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#49 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()\n#50 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#51 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()\n#52 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#53 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()\n#54 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#55 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()\n#56 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePathEncoding.php(28): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#57 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()\n#58 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#59 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()\n#60 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()\n#61 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php(638): Illuminate\\Foundation\\Http\\Kernel->handle()\n#62 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php(604): Illuminate\\Foundation\\Testing\\TestCase->call()\n#63 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php(411): Illuminate\\Foundation\\Testing\\TestCase->json()\n#64 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php(31): Illuminate\\Foundation\\Testing\\TestCase->postJson()\n#65 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php(1343): Tests\\Feature\\DependencyFailureTest->test_def04_database_outage_returns_safe_503()\n#66 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php(1380): PHPUnit\\Framework\\TestCase->invokeTestMethod()\n#67 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php(521): PHPUnit\\Framework\\TestCase->runTest()\n#68 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestRunner\\TestRunner.php(98): PHPUnit\\Framework\\TestCase->runBare()\n#69 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php(361): PHPUnit\\Framework\\TestRunner->run()\n#70 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php(379): PHPUnit\\Framework\\TestCase->run()\n#71 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php(379): PHPUnit\\Framework\\TestSuite->run()\n#72 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php(379): PHPUnit\\Framework\\TestSuite->run()\n#73 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\TextUI\\TestRunner.php(64): PHPUnit\\Framework\\TestSuite->run()\n#74 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\TextUI\\Application.php(228): PHPUnit\\TextUI\\TestRunner->run()\n#75 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\phpunit(104): PHPUnit\\TextUI\\Application->run()\n#76 {main}\n\nNext Illuminate\\Database\\QueryException: Database file at path [C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\storage\\framework/testing/does-not-exist/missing.sqlite] does not exist. Ensure this is an absolute path to the database. (Connection: sqlite, Database: C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\storage\\framework/testing/does-not-exist/missing.sqlite, SQL: select * from \"users\" where \"email\" = student@example.test limit 1) in C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:864\nStack trace:\n#0 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(820): Illuminate\\Database\\Connection->runQueryCallback()\n#1 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(433): Illuminate\\Database\\Connection->run()\n#2 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3640): Illuminate\\Database\\Connection->select()\n#3 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(3624): Illuminate\\Database\\Query\\Builder->runSelect()\n#4 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(951): Illuminate\\Database\\Query\\Builder->get()\n#5 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(933): Illuminate\\Database\\Eloquent\\Builder->getModels()\n#6 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Concerns\\BuildsQueries.php(427): Illuminate\\Database\\Eloquent\\Builder->get()\n#7 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Http\\Controllers\\Api\\AuthController.php(20): Illuminate\\Database\\Eloquent\\Builder->first()\n#8 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\AuthController->login()\n#9 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(276): Illuminate\\Routing\\ControllerDispatcher->dispatch()\n#10 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(216): Illuminate\\Routing\\Route->runController()\n#11 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(835): Illuminate\\Routing\\Route->run()\n#12 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():834}()\n#13 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(52): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}()\n#14 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()\n#15 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(168): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#16 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(129): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()\n#17 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php(90): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()\n#18 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()\n#19 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Http\\Middleware\\RequireHttps.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#20 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\RequireHttps->handle()\n#21 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Http\\Middleware\\SecurityHeaders.php(13): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#22 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\SecurityHeaders->handle()\n#23 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Http\\Middleware\\AssignCorrelationId.php(24): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#24 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\AssignCorrelationId->handle()\n#25 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#26 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(834): Illuminate\\Pipeline\\Pipeline->then()\n#27 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(813): Illuminate\\Routing\\Router->runRouteWithinStack()\n#28 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(777): Illuminate\\Routing\\Router->runRoute()\n#29 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(766): Illuminate\\Routing\\Router->dispatchToRoute()\n#30 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch()\n#31 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}()\n#32 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(38): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}()\n#33 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()\n#34 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()\n#35 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(38): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#36 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()\n#37 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()\n#38 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#39 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle()\n#40 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#41 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()\n#42 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#43 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle()\n#44 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#45 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle()\n#46 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#47 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle()\n#48 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePathEncoding.php(28): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#49 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle()\n#50 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}()\n#51 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()\n#52 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()\n#53 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php(638): Illuminate\\Foundation\\Http\\Kernel->handle()\n#54 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php(604): Illuminate\\Foundation\\Testing\\TestCase->call()\n#55 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests.php(411): Illuminate\\Foundation\\Testing\\TestCase->json()\n#56 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php(31): Illuminate\\Foundation\\Testing\\TestCase->postJson()\n#57 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php(1343): Tests\\Feature\\DependencyFailureTest->test_def04_database_outage_returns_safe_503()\n#58 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php(1380): PHPUnit\\Framework\\TestCase->invokeTestMethod()\n#59 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php(521): PHPUnit\\Framework\\TestCase->runTest()\n#60 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestRunner\\TestRunner.php(98): PHPUnit\\Framework\\TestCase->runBare()\n#61 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestCase.php(361): PHPUnit\\Framework\\TestRunner->run()\n#62 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php(379): PHPUnit\\Framework\\TestCase->run()\n#63 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php(379): PHPUnit\\Framework\\TestSuite->run()\n#64 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\Framework\\TestSuite.php(379): PHPUnit\\Framework\\TestSuite->run()\n#65 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\TextUI\\TestRunner.php(64): PHPUnit\\Framework\\TestSuite->run()\n#66 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\src\\TextUI\\Application.php(228): PHPUnit\\TextUI\\TestRunner->run()\n#67 C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\phpunit\\phpunit\\phpunit(104): PHPUnit\\TextUI\\Application->run()\n#68 {main}\n\n----------------------------------------------------------------------------------\n\nDatabase file at path [C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\storage\\framework/testing/does-not-exist/missing.sqlite] does not exist. Ensure this is an absolute path to the database. (Connection: sqlite, Database: C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\storage\\framework/testing/does-not-exist/missing.sqlite, SQL: select * from \"users\" where \"email\" = student@example.test limit 1)","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php:33"]},{"test":"Tests\\Feature\\DependencyFailureTest::test_def04_health_reports_database_unavailable","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php","line":51,"message":"Expected response status code [503] but received 404.\nFailed asserting that 404 is identical to 503.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php:51"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def01_requester_gets_404_not_403_for_someone_elses_ticket","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":35,"message":"Expected response status code [404] but received 403.\nFailed asserting that 403 is identical to 404.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:35"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def01_agent_cannot_probe_other_agents_ticket","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":45,"message":"Expected response status code [404] but received 403.\nFailed asserting that 403 is identical to 404.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:45"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def02_duplicate_submission_with_same_key_creates_one_ticket","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":67,"message":"Expected response status code [200] but received 201.\nFailed asserting that 201 is identical to 200.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:67"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def02_same_key_with_different_payload_is_conflict","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":81,"message":"Expected response status code [409] but received 201.\nFailed asserting that 201 is identical to 409.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:81"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def02_malformed_idempotency_key_is_rejected","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":103,"message":"Expected response status code [422] but received 201.\nFailed asserting that 201 is identical to 422.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:103"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def03_confirm_on_unresolved_ticket_is_409","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":114,"message":"Expected response status code [409] but received 403.\nFailed asserting that 403 is identical to 409.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:114"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def03_assign_on_closed_ticket_is_409","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":124,"message":"Expected response status code [409] but received 403.\nFailed asserting that 403 is identical to 409.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:124"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def05_unknown_status_filter_is_rejected","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":132,"message":"Expected response status code [422] but received 200.\nFailed asserting that 200 is identical to 422.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:132"]},{"test":"Tests\\Feature\\Week15HardeningTest::test_def06_method_not_allowed_is_generic","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":141,"message":"Failed asserting that '{\\n\n \"message\": \"The GET method is not supported for route api/v1/auth/login. Supported methods: POST.\",\\n\n \"exception\": \"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\MethodNotAllowedHttpException\",\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\AbstractRouteCollection.php\",\\n\n \"line\": 130,\\n\n \"trace\": [\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\AbstractRouteCollection.php\",\\n\n \"line\": 115,\\n\n \"function\": \"requestMethodNotAllowed\",\\n\n \"class\": \"Illuminate\\\\Routing\\\\AbstractRouteCollection\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\AbstractRouteCollection.php\",\\n\n \"line\": 41,\\n\n \"function\": \"getRouteForMethods\",\\n\n \"class\": \"Illuminate\\\\Routing\\\\AbstractRouteCollection\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\RouteCollection.php\",\\n\n \"line\": 207,\\n\n \"function\": \"handleMatchedRoute\",\\n\n \"class\": \"Illuminate\\\\Routing\\\\AbstractRouteCollection\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\\n\n \"line\": 790,\\n\n \"function\": \"match\",\\n\n \"class\": \"Illuminate\\\\Routing\\\\RouteCollection\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\\n\n \"line\": 777,\\n\n \"function\": \"findRoute\",\\n\n \"class\": \"Illuminate\\\\Routing\\\\Router\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\\n\n \"line\": 766,\\n\n \"function\": \"dispatchToRoute\",\\n\n \"class\": \"Illuminate\\\\Routing\\\\Router\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\\n\n \"line\": 200,\\n\n \"function\": \"dispatch\",\\n\n \"class\": \"Illuminate\\\\Routing\\\\Router\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 180,\\n\n \"function\": \"{closure:Illuminate\\\\Foundation\\\\Http\\\\Kernel::dispatchToRouter():197}\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\\n\n \"line\": 38,\\n\n \"function\": \"{closure:Illuminate\\\\Pipeline\\\\Pipeline::prepareDestination():178}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull.php\",\\n\n \"line\": 31,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 219,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\\n\n \"line\": 38,\\n\n \"function\": \"{closure:{closure:Illuminate\\\\Pipeline\\\\Pipeline::carry():194}:195}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings.php\",\\n\n \"line\": 51,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 219,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Http\\\\Middleware\\\\ValidatePostSize.php\",\\n\n \"line\": 27,\\n\n \"function\": \"{closure:{closure:Illuminate\\\\Pipeline\\\\Pipeline::carry():194}:195}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 219,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Http\\\\Middleware\\\\ValidatePostSize\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance.php\",\\n\n \"line\": 110,\\n\n \"function\": \"{closure:{closure:Illuminate\\\\Pipeline\\\\Pipeline::carry():194}:195}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 219,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Http\\\\Middleware\\\\HandleCors.php\",\\n\n \"line\": 74,\\n\n \"function\": \"{closure:{closure:Illuminate\\\\Pipeline\\\\Pipeline::carry():194}:195}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 219,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Http\\\\Middleware\\\\HandleCors\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Http\\\\Middleware\\\\TrustProxies.php\",\\n\n \"line\": 58,\\n\n \"function\": \"{closure:{closure:Illuminate\\\\Pipeline\\\\Pipeline::carry():194}:195}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 219,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Http\\\\Middleware\\\\TrustProxies\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\InvokeDeferredCallbacks.php\",\\n\n \"line\": 22,\\n\n \"function\": \"{closure:{closure:Illuminate\\\\Pipeline\\\\Pipeline::carry():194}:195}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 219,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\InvokeDeferredCallbacks\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Http\\\\Middleware\\\\ValidatePathEncoding.php\",\\n\n \"line\": 28,\\n\n \"function\": \"{closure:{closure:Illuminate\\\\Pipeline\\\\Pipeline::carry():194}:195}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 219,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Http\\\\Middleware\\\\ValidatePathEncoding\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\\n\n \"line\": 137,\\n\n \"function\": \"{closure:{closure:Illuminate\\\\Pipeline\\\\Pipeline::carry():194}:195}\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\\n\n \"line\": 175,\\n\n \"function\": \"then\",\\n\n \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\\n\n \"line\": 144,\\n\n \"function\": \"sendRequestThroughRouter\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Testing\\\\Concerns\\\\MakesHttpRequests.php\",\\n\n \"line\": 638,\\n\n \"function\": \"handle\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Testing\\\\Concerns\\\\MakesHttpRequests.php\",\\n\n \"line\": 604,\\n\n \"function\": \"call\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Testing\\\\TestCase\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Testing\\\\Concerns\\\\MakesHttpRequests.php\",\\n\n \"line\": 381,\\n\n \"function\": \"json\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Testing\\\\TestCase\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\tests\\\\Feature\\\\Week15HardeningTest.php\",\\n\n \"line\": 139,\\n\n \"function\": \"getJson\",\\n\n \"class\": \"Illuminate\\\\Foundation\\\\Testing\\\\TestCase\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\Framework\\\\TestCase.php\",\\n\n \"line\": 1343,\\n\n \"function\": \"test_def06_method_not_allowed_is_generic\",\\n\n \"class\": \"Tests\\\\Feature\\\\Week15HardeningTest\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\Framework\\\\TestCase.php\",\\n\n \"line\": 1380,\\n\n \"function\": \"invokeTestMethod\",\\n\n \"class\": \"PHPUnit\\\\Framework\\\\TestCase\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\Framework\\\\TestCase.php\",\\n\n \"line\": 521,\\n\n \"function\": \"runTest\",\\n\n \"class\": \"PHPUnit\\\\Framework\\\\TestCase\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\Framework\\\\TestRunner\\\\TestRunner.php\",\\n\n \"line\": 98,\\n\n \"function\": \"runBare\",\\n\n \"class\": \"PHPUnit\\\\Framework\\\\TestCase\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\Framework\\\\TestCase.php\",\\n\n \"line\": 361,\\n\n \"function\": \"run\",\\n\n \"class\": \"PHPUnit\\\\Framework\\\\TestRunner\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\Framework\\\\TestSuite.php\",\\n\n \"line\": 379,\\n\n \"function\": \"run\",\\n\n \"class\": \"PHPUnit\\\\Framework\\\\TestCase\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\Framework\\\\TestSuite.php\",\\n\n \"line\": 379,\\n\n \"function\": \"run\",\\n\n \"class\": \"PHPUnit\\\\Framework\\\\TestSuite\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\Framework\\\\TestSuite.php\",\\n\n \"line\": 379,\\n\n \"function\": \"run\",\\n\n \"class\": \"PHPUnit\\\\Framework\\\\TestSuite\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\TextUI\\\\TestRunner.php\",\\n\n \"line\": 64,\\n\n \"function\": \"run\",\\n\n \"class\": \"PHPUnit\\\\Framework\\\\TestSuite\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\src\\\\TextUI\\\\Application.php\",\\n\n \"line\": 228,\\n\n \"function\": \"run\",\\n\n \"class\": \"PHPUnit\\\\TextUI\\\\TestRunner\",\\n\n \"type\": \"->\"\\n\n },\\n\n {\\n\n \"file\": \"C:\\\\Users\\\\Celi\\\\Documents\\\\1aaaaa\\\\week15\\\\backend\\\\vendor\\\\phpunit\\\\phpunit\\\\phpunit\",\\n\n \"line\": 104,\\n\n \"function\": \"run\",\\n\n \"class\": \"PHPUnit\\\\TextUI\\\\Application\",\\n\n \"type\": \"->\"\\n\n }\\n\n ]\\n\n}' [ASCII](length: 15003) does not contain \"Supported methods\" [ASCII](length: 17)."},{"test":"Tests\\Feature\\Week15HardeningTest::test_def07_cors_allows_idempotency_header_from_flutter_origin","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":160,"message":"Failed asserting that 'authorization, content-type, accept, x-correlation-id' [ASCII](length: 53) contains \"idempotency-key\" [ASCII](length: 15)."},{"test":"Tests\\Feature\\Week15HardeningTest::test_def04_health_endpoint_reports_ok","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php","line":167,"message":"Expected response status code [200] but received 404.\nFailed asserting that 404 is identical to 200.","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\TestResponseAssert.php:46","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\Week15HardeningTest.php:167"]}],"errors":2,"error_details":[{"test":"Tests\\Feature\\DependencyFailureTest::test_def08_gateway_timeout_is_bounded_and_reported","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php","line":66,"message":"cURL error 28: Operation timed out after 3000 milliseconds","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php:66","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Console\\Commands\\SendGatewayMessage.php:62","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Console\\Commands\\SendGatewayMessage.php:64","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php:71"]},{"test":"Tests\\Feature\\DependencyFailureTest::test_def08_gateway_recovers_from_one_transient_failure","file":"C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php","line":86,"message":"cURL error 7: Connection refused","trace":["C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php:86","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Console\\Commands\\SendGatewayMessage.php:62","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\app\\Console\\Commands\\SendGatewayMessage.php:64","C:\\Users\\Celi\\Documents\\1aaaaa\\week15\\backend\\tests\\Feature\\DependencyFailureTest.php:92"]}]}

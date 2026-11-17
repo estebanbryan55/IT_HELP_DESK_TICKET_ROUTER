@@ -1,0 +1,97 @@
+Authentication (Tests\Feature\Authentication)
+ [x] Valid login returns expiring bearer token
+ [x] Tokens are stored hashed not in plain text
+ [x] Wrong password and unknown email get same generic error
+ [x] Deactivated account cannot log in
+ [x] Login is rate limited after five attempts
+ [x] Missing token is rejected
+ [x] Invalid token is rejected
+ [x] Expired token is rejected
+ [x] Logout revokes the token
+ [x] Token of account disabled after login is rejected
+
+Dependency Failure (Tests\Feature\DependencyFailure)
+ [x] Def04 database outage returns safe 503
+ [x] Def04 health reports database unavailable
+ [x] Def08 gateway timeout is bounded and reported
+ [x] Def08 gateway recovers from one transient failure
+
+Example (Tests\Feature\Example)
+ [x] The application returns a successful response
+
+Example (Tests\Unit\Example)
+ [x] That true is true
+
+Integration Contract (Tests\Feature\IntegrationContract)
+ [x] Subject boundaries 5 and 120 accepted 4 and 121 rejected
+ [x] Description boundaries 10 and 2000
+ [x] Whitespace only subject is treated as missing
+ [x] Malformed json is a validation error not a server error
+ [x] Client cannot set server owned fields
+ [x] Html in text fields is stored and returned as plain data
+ [x] Ticket response shape matches flutter model
+ [x] List is paginated with meta
+ [x] Every api response carries a correlation id
+
+Integration Signature (Tests\Feature\IntegrationSignature)
+ [x] Valid signed message creates ticket
+ [x] Altered body is rejected
+ [x] Expired timestamp is rejected
+ [x] Future timestamp beyond tolerance is rejected
+ [x] Replayed message is rejected
+ [x] Signature from wrong secret is rejected
+ [x] Unknown key id is rejected
+ [x] Missing headers are rejected
+ [x] Unregistered requester is not auto created
+ [x] Rejected forgeries do not consume nonces
+
+Protected Data (Tests\Feature\ProtectedData)
+ [x] Contact number and access note are encrypted at rest
+ [x] Same plaintext produces different ciphertext
+ [x] Altered ciphertext is detected and not returned
+ [x] Ciphertext from a different key is rejected
+ [x] Unassigned agent never sees protected fields and supervisor does
+ [x] List endpoint does not expose protected fields
+ [x] Api responses never include password hashes
+
+Redact Sensitive Data (Tests\Unit\RedactSensitiveData)
+ [x] Secret keys are masked at any depth
+ [x] Bearer tokens inside free text are masked
+
+Ticket Authorization (Tests\Feature\TicketAuthorization)
+ [x] Requester creates ticket and it is routed to specialised agent
+ [x] Invalid input is rejected with field errors
+ [x] Requester cannot view another requesters ticket
+ [x] Ticket list is scoped to the caller
+ [x] Requester cannot change status or assign
+ [x] Agent cannot work a ticket assigned to someone else
+ [x] Full workflow assign resolve confirm close
+ [x] Invalid status transition is refused
+ [x] Supervisor can reassign only to an active agent
+ [x] Unknown ticket returns generic not found
+
+Transport Security (Tests\Feature\TransportSecurity)
+ [x] Plain http is refused when https is required
+ [x] Https request is accepted and gets hsts
+ [x] Security headers are present on api responses
+ [x] Wellformed correlation id is echoed and malformed one is replaced
+ [x] Cors allows only the configured frontend origin
+
+Week15Hardening (Tests\Feature\Week15Hardening)
+ [x] Def01 requester gets 404 not 403 for someone elses ticket
+ [x] Def01 agent cannot probe other agents ticket
+ [x] Def01 visible ticket with missing permission is still 403
+ [x] Def02 duplicate submission with same key creates one ticket
+ [x] Def02 same key with different payload is conflict
+ [x] Def02 keys are scoped to the requester
+ [x] Def02 malformed idempotency key is rejected
+ [x] Def03 confirm on unresolved ticket is 409
+ [x] Def03 assign on closed ticket is 409
+ [x] Def05 unknown status filter is rejected
+ [x] Def06 method not allowed is generic
+ [x] Def07 cors allows idempotency header from flutter origin
+ [x] Def04 health endpoint reports ok
+
+
+Run: 2026-11-17T14:11:42+08:00  PHP 8.4.14  PHPUnit 12.5.43 by Sebastian Bergmann and contributors.
+{"tool":"phpunit","result":"passed","tests":72,"passed":72,"assertions":238,"duration_ms":7225}

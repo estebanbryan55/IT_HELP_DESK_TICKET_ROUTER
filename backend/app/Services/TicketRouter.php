@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Log;
  */
 class TicketRouter
 {
-    public function open(User $requester, array $data, string $source = 'web'): Ticket
+    public function open(User $requester, array $data, string $source = 'web', ?string $idempotencyKey = null, ?string $requestHash = null): Ticket
     {
-        return DB::transaction(function () use ($requester, $data, $source) {
+        return DB::transaction(function () use ($requester, $data, $source, $idempotencyKey, $requestHash) {
             $category = TicketCategory::from($data['category']);
             $priority = TicketPriority::from($data['priority'] ?? 'normal');
 
@@ -31,6 +31,8 @@ class TicketRouter
                 'priority' => $priority,
                 'status' => TicketStatus::Open,
                 'source' => $source,
+                'idempotency_key' => $idempotencyKey,
+                'request_hash' => $idempotencyKey ? $requestHash : null,
                 'subject' => $data['subject'],
                 'description' => $data['description'],
                 'asset_tag' => $data['asset_tag'] ?? null,

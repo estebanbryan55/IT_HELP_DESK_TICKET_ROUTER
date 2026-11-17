@@ -1,0 +1,24 @@
+DEF-10 found by Flutter state test ST-03 (week15_state_test.dart), first run, 2026-11-17, before the fix.
+Command: flutter test test/week15_state_test.dart --plain-name "ST-03"
+Code under test: lib/screens/ticket_list_screen.dart  ->  void _refresh() => setState(() => _future = _load());
+
+00:00 +0: ST-03 network failure shows retry, and retry recovers
+== EXCEPTION CAUGHT BY GESTURE ==
+The following assertion was thrown while handling a gesture:
+setState() callback argument returned a Future.
+The setState() method on _TicketListScreenState#cd1bf was called with a closure or method that
+returned a Future. Maybe it is marked as "async".
+Handler: "onTap"   Recognizer: TapGestureRecognizer#195fa
+
+== EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ==
+Expected: exactly one matching candidate
+  Actual: _TextWidgetFinder:<Found 0 widgets with text "Wi-Fi drops in Lab 3": []>
+   Which: means none were found but one was expected
+
+Interpretation: in debug builds the "Try again" and "Refresh" buttons threw instead of reloading,
+so a user who hit a network error could not recover without reloading the page (and a reload signs
+them out, because the token is kept only in memory). Release builds skip the assertion, which is why
+Week 14 manual testing did not notice it. The same pattern existed in ticket_detail_screen.dart
+(Try again, post-action refresh).
+
+Fix: block-bodied setState calls (_refresh / _reload). After the fix ST-03 passes; see 08-flutter-tests.txt.

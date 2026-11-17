@@ -1,0 +1,19 @@
+00:00 +0: loading C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart
+00:00 +0: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-01 sign in, loading indicator, then ticket list (success state)
+00:02 +1: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-01 sign in, loading indicator, then ticket list (success state)
+00:02 +2: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-01 sign in, loading indicator, then ticket list (success state)
+00:02 +3: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-01 sign in, loading indicator, then ticket list (success state)
+00:02 +4: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-01 sign in, loading indicator, then ticket list (success state)
+00:02 +5: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-01 sign in, loading indicator, then ticket list (success state)
+00:02 +6: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-02 empty state guides the requester
+00:03 +7: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-03 network failure shows retry, and retry recovers
+00:03 +8: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-04 503 dependency outage shows a safe message with a reference
+00:03 +9: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-05 expired token (401) returns to sign-in with a notice
+00:04 +10: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-06 ticket the user may not see shows "not found" without a retry loop
+00:04 +11: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: ST-07 login rate limit (429) and outage (503) are explained, password cleared
+00:05 +12: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: New ticket form ST-08 server validation error appears under the matching field
+00:06 +13: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: New ticket form ST-09 client validation blocks the request entirely
+00:06 +14: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: New ticket form ST-10 timeout then retry reuses the same Idempotency-Key (no duplicate ticket)
+00:07 +15: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: New ticket form ST-11 double-click sends one request (button disabled while busy)
+00:08 +16: C:/Users/Celi/Documents/1aaaaa/week15/frontend/test/week15_state_test.dart: New ticket form ST-12 narrow 375 px browser: fields stack vertically without overflow
+00:09 +17: All tests passed!

@@ -4,8 +4,11 @@ namespace App\Console\Commands;
 
 use App\Services\MessageSigner;
 use Illuminate\Console\Command;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Throwable;
 
 /**
  * Email-gateway simulator used to produce Week 14 evidence. Sends one signed
@@ -24,6 +27,8 @@ class SendGatewayMessage extends Command
         {--tamper} {--expired} {--replay} {--wrong-key}';
 
     protected $description = 'Send a signed test ticket from the simulated email gateway';
+
+    private const ATTEMPTS = 3;
 
     public function handle(): int
     {
@@ -53,17 +58,32 @@ class SendGatewayMessage extends Command
             $body = str_replace('"software"', '"account"', $body);
         }
 
+        // Week 15 DEF-08: bounded waiting. Each attempt times out after 3 s and only
+        // network failures or 5xx answers are retried (3 attempts, 500 ms apart).
+        // Retrying is safe: the nonce makes a repeated delivery a 409 replay, not a new ticket.
         $send = fn () => Http::withHeaders([
             'X-Key-Id' => $keyId,
             'X-Timestamp' => (string) $timestamp,
             'X-Nonce' => $nonce,
             'X-Signature' => $signature,
             'Accept' => 'application/json',
-        ])->withBody($body, 'application/json')->post($url);
+        ])->connectTimeout(2)->timeout(3)
+            ->retry(self::ATTEMPTS, 500, fn (Throwable $e) => $e instanceof ConnectionException
+                || ($e instanceof RequestException && $e->response->serverError()), throw: false)
+            ->withBody($body, 'application/json')->post($url);
 
-        $this->report('Attempt 1', $send());
-        if ($this->option('replay')) {
-            $this->report('Attempt 2 (replay)', $send());
+        try {
+            $this->report('Attempt 1', $send());
+            if ($this->option('replay')) {
+                $this->report('Attempt 2 (replay)', $send());
+            }
+        } catch (ConnectionException $e) {
+            // Permanent failure for this run: report once, no stack trace, non-zero exit
+            // so a scheduler or operator can route the message to manual handling.
+            $this->error(sprintf('Help desk API unreachable after %d attempts (%s). Message kept for manual retry.',
+                self::ATTEMPTS, str_contains($e->getMessage(), 'timed out') ? 'timeout' : 'connection failed'));
+
+            return self::FAILURE;
         }
 
         return self::SUCCESS;

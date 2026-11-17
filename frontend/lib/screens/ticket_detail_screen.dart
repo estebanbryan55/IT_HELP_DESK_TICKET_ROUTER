@@ -25,6 +25,13 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     _future = _load();
   }
 
+  // Week 15 DEF-10: setState must not return the Future (block body, not arrow).
+  void _reload() {
+    setState(() {
+      _future = _load();
+    });
+  }
+
   Future<Ticket> _load() async {
     final json = await widget.session.api.get('/tickets/${widget.ticketId}');
     return Ticket.fromJson(json['data'] as Map<String, dynamic>);
@@ -35,10 +42,16 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     try {
       final json = await widget.session.api.post('/tickets/${widget.ticketId}/$path', body);
       if (!mounted) return;
-      setState(() => _future = Future.value(Ticket.fromJson(json['data'] as Map<String, dynamic>)));
+      final updated = Ticket.fromJson(json['data'] as Map<String, dynamic>);
+      setState(() {
+        _future = Future.value(updated);
+      });
       showResult(context, done);
     } on ApiException catch (e) {
-      if (mounted) showResult(context, e.fieldErrors.values.firstOrNull?.first ?? e.message, error: true);
+      if (!mounted) return;
+      showResult(context, e.fieldErrors.values.firstOrNull?.first ?? e.message, error: true);
+      // Week 15 DEF-03: a 409 means our copy is stale; reload so the buttons match the real state.
+      if (e.kind == ApiErrorKind.conflict) _reload();
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -144,14 +157,21 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
           if (snap.connectionState != ConnectionState.done) return const LoadingView(label: 'Loading ticket');
           if (snap.hasError) {
             final e = snap.error;
-            final forbidden = e is ApiException && e.kind == ApiErrorKind.forbidden;
+            final kind = e is ApiException ? e.kind : ApiErrorKind.server;
+            // Not-found and forbidden are final; only transient failures offer a retry.
+            final (IconData icon, String title, bool retry) = switch (kind) {
+              ApiErrorKind.notFound => (Icons.search_off, 'Ticket not found', false),
+              ApiErrorKind.forbidden => (Icons.block, 'Access denied', false),
+              ApiErrorKind.network || ApiErrorKind.unavailable => (Icons.cloud_off, 'Service unavailable', true),
+              _ => (Icons.error_outline, 'Could not load this ticket', true),
+            };
             return MessageView(
-              icon: forbidden ? Icons.block : Icons.error_outline,
-              title: forbidden ? 'Access denied' : 'Could not load this ticket',
+              icon: icon,
+              title: title,
               detail: e.toString(),
-              action: forbidden
-                  ? null
-                  : OutlinedButton(onPressed: () => setState(() => _future = _load()), child: const Text('Try again')),
+              action: retry
+                  ? OutlinedButton(onPressed: _reload, child: const Text('Try again'))
+                  : OutlinedButton(onPressed: () => Navigator.of(context).maybePop(), child: const Text('Back to list')),
             );
           }
           final t = snap.data!;

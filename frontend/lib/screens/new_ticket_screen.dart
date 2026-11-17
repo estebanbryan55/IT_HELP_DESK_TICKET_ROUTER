@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../api/api_client.dart';
@@ -29,6 +31,11 @@ class _NewTicketScreenState extends State<NewTicketScreen> {
   bool _busy = false;
   Map<String, List<String>> _serverErrors = {};
 
+  /// Week 15 DEF-02: one key per form. If the first submit times out after the
+  /// server already saved the ticket, pressing Submit again returns that same
+  /// ticket instead of creating a duplicate.
+  final String _idempotencyKey = newIdempotencyKey();
+
   @override
   void dispose() {
     for (final c in [_subject, _description, _assetTag, _contact, _accessNote]) {
@@ -52,7 +59,7 @@ class _NewTicketScreenState extends State<NewTicketScreen> {
         if (_assetTag.text.trim().isNotEmpty) 'asset_tag': _assetTag.text.trim().toUpperCase(),
         if (_contact.text.trim().isNotEmpty) 'contact_number': _contact.text.trim(),
         if (_accessNote.text.trim().isNotEmpty) 'access_note': _accessNote.text.trim(),
-      });
+      }, {'Idempotency-Key': _idempotencyKey});
       if (mounted) Navigator.of(context).pop(Ticket.fromJson(json['data'] as Map<String, dynamic>));
     } on ApiException catch (e) {
       if (!mounted) return;
@@ -60,7 +67,11 @@ class _NewTicketScreenState extends State<NewTicketScreen> {
         setState(() => _serverErrors = e.fieldErrors);
         _form.currentState!.validate();
       }
-      showResult(context, e.message, error: true);
+      showResult(
+        context,
+        e.isTransient ? '${e.message} Your form was kept; press Submit again to retry safely.' : e.message,
+        error: true,
+      );
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -185,4 +196,10 @@ class _NewTicketScreenState extends State<NewTicketScreen> {
       ),
     );
   }
+}
+
+/// 32 random hex characters from a cryptographically secure source.
+String newIdempotencyKey() {
+  final rng = Random.secure();
+  return 'tk-${List.generate(16, (_) => rng.nextInt(256).toRadixString(16).padLeft(2, '0')).join()}';
 }
